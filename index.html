@@ -1,26 +1,550 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Removed defer script tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vishesh Jangid - Developer Portfolio</title>
+
+  <!-- Meta Tags -->
+  <meta name="title" content="Vishesh Jangid - Developer Portfolio" />
+  <meta name="description" content="BCA student from ICCS, Pune. Full-stack developer passionate about building intuitive web apps, engaging games, and data-driven solutions." />
+  <meta name="color-scheme" content="light dark" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vishesh Jangid - Developer Portfolio" />
+  <meta property="og:description" content="BCA student from ICCS, Pune. Full-stack developer passionate about building intuitive web apps, engaging games, and data-driven solutions." />
+  
+  <link rel="canonical" href="https://your-domain.example/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  
+  <!-- Icons + Audio -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <header>
-        <h1>Welcome to My Portfolio</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Projects</h2>
-            <p>Here are some of my projects.</p>
-        </section>
-    </main>
-    
-    <!-- Keeping only the script tags at the bottom -->
-    <script src="script.js"></script>
-    <script src="another-script.js"></script>
+
+<body class="antialiased">
+  <a href="#home" class="skip-link">Skip to main content</a>
+
+  <!-- Pill Navigation -->
+  <div class="pill-nav-container">
+    <nav class="pill-nav" aria-label="Primary">
+      <a href="#home" class="pill-logo" aria-label="Home">
+        <span class="logo-emoji">🚀</span>
+      </a>
+
+      <div class="pill-nav-items desktop-only">
+        <ul class="pill-list" role="menubar">
+          <li role="none">
+            <a href="#about" class="pill" role="menuitem" data-nav-item="0">
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">About</span>
+                <span class="pill-label-hover" aria-hidden="true">About</span>
+              </span>
+            </a>
+          </li>
+          <li role="none">
+            <a href="#projects" class="pill" role="menuitem" data-nav-item="1">
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">Projects</span>
+                <span class="pill-label-hover" aria-hidden="true">Projects</span>
+              </span>
+            </a>
+          </li>
+          <li role="none">
+            <a href="#experience" class="pill" role="menuitem" data-nav-item="2">
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">Experience</span>
+                <span class="pill-label-hover" aria-hidden="true">Experience</span>
+              </span>
+            </a>
+          </li>
+          <li role="none">
+            <a href="#contact" class="pill" role="menuitem" data-nav-item="3">
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">Contact</span>
+                <span class="pill-label-hover" aria-hidden="true">Contact</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <button class="mobile-menu-button mobile-only" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu-popover mobile-only">
+      <ul class="mobile-menu-list">
+        <li><a href="#about" class="mobile-menu-link">About</a></li>
+        <li><a href="#projects" class="mobile-menu-link">Projects</a></li>
+        <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
+        <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Theme Toggle (Floating) -->
+  <button id="theme-toggle" class="theme-toggle-floating" aria-label="Toggle theme">
+    <i data-lucide="sun" id="theme-icon-light"></i>
+    <i data-lucide="moon" id="theme-icon-dark" class="hidden"></i>
+  </button>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section id="home" class="hero-section" aria-label="Hero">
+      <div class="hero-content">
+        <div class="hero-badge fade-in">
+          <span class="badge-dot"></span>
+          Available for Internships
+        </div>
+        
+        <h1 class="hero-title">
+          <span class="hero-greeting">Hi, I'm</span>
+          <span class="hero-name gradient-text">Vishesh Jangid</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          Full-Stack Developer & Problem Solver
+        </p>
+        
+        <p class="hero-description">
+          BCA student from ICCS, Pune, crafting intuitive web applications, 
+          engaging games, and data-driven solutions with passion and precision.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <span>Get in Touch</span>
+            <i data-lucide="arrow-right" class="btn-icon"></i>
+          </a>
+          <a href="https://drive.google.com/file/d/18b_CPKev6ArI4RQXm7YQ9aCXK_gI2wV2/view?usp=sharing" 
+             class="btn btn-secondary" target="_blank" rel="noopener">
+            <i data-lucide="file-text" class="btn-icon"></i>
+            <span>View Resume</span>
+          </a>
+          <button id="play-game-btn" class="btn btn-glass">
+            <i data-lucide="gamepad-2" class="btn-icon"></i>
+            <span>Play Game</span>
+          </button>
+        </div>
+
+        <div class="hero-social">
+          <a href="https://github.com/Visheshj111" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+            <i data-lucide="github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/vishesh-jangid3126/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+            <i data-lucide="linkedin"></i>
+          </a>
+          <a href="mailto:vishesh.domain@gmail.com" class="social-link" aria-label="Email">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="floating-card card-1">
+          <i data-lucide="code-2"></i>
+          <span>Full Stack</span>
+        </div>
+        <div class="floating-card card-2">
+          <i data-lucide="database"></i>
+          <span>MERN Stack</span>
+        </div>
+        <div class="floating-card card-3">
+          <i data-lucide="gamepad-2"></i>
+          <span>Game Dev</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-container" aria-label="About Me">
+      <div class="section-header">
+        <span class="section-label">Get to know me</span>
+        <h2 class="section-title">About Me</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-content glass-card">
+          <div class="about-text">
+            <p class="text-large">
+              Hello! I'm Vishesh, a self-taught developer who loves bringing ideas to life through code.
+            </p>
+            <p>
+              My journey started with a fascination for video games, which evolved into a broader 
+              passion for software development. I enjoy the entire process, from conceptualizing 
+              and designing to coding and deploying.
+            </p>
+            <p>
+              I thrive on challenges and am constantly exploring new technologies to expand my skillset. 
+              Whether it's building a full-stack web application, designing game mechanics, or analyzing 
+              data, I'm driven by a desire to create things that are both functional and enjoyable to use.
+            </p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">200+</div>
+              <div class="stat-label">Students Tested</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">10+</div>
+              <div class="stat-label">Projects Built</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">9.23</div>
+              <div class="stat-label">CGPA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-container">
+          <div class="skills-header">
+            <h3 class="skills-title">Technical Skills</h3>
+            <p class="skills-subtitle">Technologies I work with</p>
+          </div>
+          
+          <div class="skills-grid">
+            <div class="skill-pill" data-category="language">
+              <i data-lucide="code-2"></i>
+              <span>C++</span>
+            </div>
+            <div class="skill-pill" data-category="language">
+              <i data-lucide="code-2"></i>
+              <span>C</span>
+            </div>
+            <div class="skill-pill" data-category="web">
+              <i data-lucide="file-code-2"></i>
+              <span>HTML</span>
+            </div>
+            <div class="skill-pill" data-category="web">
+              <i data-lucide="palette"></i>
+              <span>CSS</span>
+            </div>
+            <div class="skill-pill" data-category="language">
+              <i data-lucide="square-code"></i>
+              <span>JavaScript</span>
+            </div>
+            <div class="skill-pill" data-category="backend">
+              <i data-lucide="server"></i>
+              <span>Node.js</span>
+            </div>
+            <div class="skill-pill" data-category="backend">
+              <i data-lucide="route"></i>
+              <span>Express.js</span>
+            </div>
+            <div class="skill-pill" data-category="frontend">
+              <i data-lucide="atom"></i>
+              <span>React</span>
+            </div>
+            <div class="skill-pill" data-category="database">
+              <i data-lucide="database"></i>
+              <span>MongoDB</span>
+            </div>
+            <div class="skill-pill" data-category="gamedev">
+              <i data-lucide="gamepad-2"></i>
+              <span>Godot</span>
+            </div>
+            <div class="skill-pill" data-category="other">
+              <i data-lucide="git-branch"></i>
+              <span>DSA</span>
+            </div>
+            <div class="skill-pill" data-category="cloud">
+              <i data-lucide="cloud"></i>
+              <span>AWS</span>
+            </div>
+            <div class="skill-pill" data-category="cloud">
+              <i data-lucide="cloud"></i>
+              <span>Render</span>
+            </div>
+            <div class="skill-pill" data-category="cloud">
+              <i data-lucide="cloud"></i>
+              <span>Vercel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-container" aria-label="Featured Projects">
+      <div class="section-header">
+        <span class="section-label">My work</span>
+        <h2 class="section-title">Featured Project</h2>
+      </div>
+
+      <div class="projects-showcase">
+        <a href="aptitude-test-app.rar" download class="project-hero glass-card">
+          <div class="project-hero-image">
+            <img src="https://placehold.co/1200x600/4338ca/ffffff?text=Assessment+Platform" alt="Assessment Platform" />
+            <div class="project-hero-overlay">
+              <div class="download-badge">
+                <i data-lucide="download"></i>
+                <span>Download Project</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-hero-content">
+            <div class="project-hero-header">
+              <div class="project-tags">
+                <span class="project-tag">MongoDB</span>
+                <span class="project-tag">Node.js</span>
+                <span class="project-tag">Express.js</span>
+                <span class="project-tag">JWT</span>
+                <span class="project-tag">Render</span>
+              </div>
+              <h3 class="project-hero-title">Full-Stack Aptitude Assessment Platform</h3>
+            </div>
+            
+            <p class="project-hero-description">
+              Developed a comprehensive secure web-based testing platform supporting 200+ concurrent students 
+              with real-time auto-grading and advanced anti-cheat detection including tab-switching monitoring, 
+              developer tools blocking, and automatic submission on violations.
+            </p>
+
+            <div class="project-features">
+              <div class="feature-item">
+                <i data-lucide="shield-check"></i>
+                <div>
+                  <strong>Advanced Security</strong>
+                  <p>JWT authentication with anti-cheat detection</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <i data-lucide="users"></i>
+                <div>
+                  <strong>Scalable Architecture</strong>
+                  <p>Supports 200+ concurrent users with optimized connection pooling</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <i data-lucide="zap"></i>
+                <div>
+                  <strong>Real-time Grading</strong>
+                  <p>Instant results with automated scoring mechanisms</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <i data-lucide="cloud"></i>
+                <div>
+                  <strong>Cloud Deployment</strong>
+                  <p>Deployed on Render/Vercel with MongoDB Atlas</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-stats">
+              <div class="stat">
+                <i data-lucide="users"></i>
+                <span>200+ Users Tested</span>
+              </div>
+              <div class="stat">
+                <i data-lucide="shield-check"></i>
+                <span>Zero Security Breaches</span>
+              </div>
+              <div class="stat">
+                <i data-lucide="clock"></i>
+                <span>Real-time Processing</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section-container" aria-label="Experience">
+      <div class="section-header">
+        <span class="section-label">Career & Interests</span>
+        <h2 class="section-title">Experience & Passions</h2>
+      </div>
+
+      <div class="experience-grid">
+        <div class="experience-card glass-card">
+          <div class="experience-icon">
+            <i data-lucide="briefcase"></i>
+          </div>
+          <div class="experience-content">
+            <h3 class="experience-title">Placement Executive</h3>
+            <p class="experience-company">Indira Group of Institutes (IGI)</p>
+            <p class="experience-date">Feb 2024 - Present</p>
+            <p class="experience-description">
+              Key liaison between students and recruiters, managing end-to-end placement 
+              processes for 30+ coordinators, organizing recruitment drives, and contributing 
+              to strategic planning for high placement rates.
+            </p>
+            <div class="experience-tags">
+              <span>Leadership</span>
+              <span>Communication</span>
+              <span>Organization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="interests-card glass-card">
+          <h3 class="interests-title">
+            <i data-lucide="heart"></i>
+            Interests & Hobbies
+          </h3>
+          <div class="interests-list">
+            <div class="interest-item">
+              <i data-lucide="gamepad-2"></i>
+              <div>
+                <strong>Gaming & Game Design</strong>
+                <p>Making 2d and 3d games with effort and patience of all</p>
+              </div>
+            </div>
+            <div class="interest-item">
+              <i data-lucide="mountain"></i>
+              <div>
+                <strong>Outdoor Adventures</strong>
+                <p>Trekking and bike riding to explore new places</p>
+              </div>
+            </div>
+            <div class="interest-item">
+              <i data-lucide="cpu"></i>
+              <div>
+                <strong>Tech Exploration</strong>
+                <p>Always curious about emerging technologies</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-container" aria-label="Contact">
+      <div class="contact-container glass-card">
+        <div class="contact-content">
+          <h2 class="contact-title">Let's Build Something Together</h2>
+          <p class="contact-description">
+            I'm excited to apply my skills to new challenges. Whether you have an 
+            opportunity or just want to connect, I'd love to hear from you.
+          </p>
+          
+          <div class="contact-actions">
+            <a href="mailto:vishesh.domain@gmail.com" class="btn btn-primary btn-large">
+              <i data-lucide="mail" class="btn-icon"></i>
+              <span>Send Message</span>
+            </a>
+            <div class="contact-divider">
+              <span>or connect via</span>
+            </div>
+            <div class="contact-social">
+              <a href="https://www.linkedin.com/in/vishesh-jangid3126/" target="_blank" rel="noopener" class="social-btn">
+                <i data-lucide="linkedin"></i>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com/Visheshj111" target="_blank" rel="noopener" class="social-btn">
+                <i data-lucide="github"></i>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Game Modal -->
+  <div id="game-controls-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <h2 class="modal-title">Game Controls</h2>
+      <div class="controls-list">
+        <div class="control-item">
+          <span>Thrust Forward</span>
+          <kbd>↑</kbd>
+        </div>
+        <div class="control-item">
+          <span>Rotate Ship</span>
+          <div class="kbd-group">
+            <kbd>←</kbd>
+            <kbd>→</kbd>
+          </div>
+        </div>
+        <div class="control-item">
+          <span>Shoot</span>
+          <kbd>Space</kbd>
+        </div>
+        <div class="control-item">
+          <span>Restart</span>
+          <kbd>R</kbd>
+        </div>
+        <div class="control-item">
+          <span>Exit</span>
+          <kbd>Esc</kbd>
+        </div>
+      </div>
+      <button id="start-game-btn" class="btn btn-primary btn-large">Start Game</button>
+    </div>
+  </div>
+
+  <div id="game-overlay" class="game-overlay hidden">
+  <div class="game-score" id="game-score">SCORE: 0</div>
+  <div id="game-message" class="game-message hidden">
+    <h2 id="game-over-text">GAME OVER</h2>
+    <p id="final-score-text"></p>
+    <p>Press 'R' to Restart or tap screen</p>
+  </div>
+  <button id="close-game-btn" class="game-close" aria-label="Close game">
+    <i data-lucide="x"></i>
+  </button>
+  <canvas id="game-canvas"></canvas>
+  
+  <!-- Mobile Touch Controls -->
+  <div id="mobile-game-controls" class="mobile-game-controls hidden">
+    <div class="control-group control-group-left">
+      <button class="game-control control-left" aria-label="Rotate left">
+        <i data-lucide="arrow-left"></i>
+      </button>
+      <button class="game-control control-right" aria-label="Rotate right">
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+    <div class="control-group control-group-right">
+      <button class="game-control control-thrust" aria-label="Thrust">
+        <i data-lucide="arrow-up"></i>
+      </button>
+      <button class="game-control control-shoot" aria-label="Shoot">
+        <i data-lucide="zap"></i>
+      </button>
+    </div>
+    </div>
+    </div>
+
+  <footer class="footer">
+    <p>&copy; 2024 Vishesh Jangid. Crafted with passion.</p>
+  </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <script src="scripts/pill-nav.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
