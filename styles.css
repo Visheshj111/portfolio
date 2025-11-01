@@ -1607,3 +1607,102 @@ kbd {
     padding-top: 120px;
   }
 }   
+.mobile-game-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 2rem;
+}
+
+.control-group {
+  display: flex;
+  gap: 1rem;
+  pointer-events: all;
+}
+
+.control-group-left {
+  flex-direction: row;
+}
+
+.control-group-right {
+  flex-direction: column-reverse;
+  gap: 1.5rem;
+}
+
+.game-control {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.game-control:active,
+.game-control.active {
+  background: rgba(99, 102, 241, 0.6);
+  border-color: rgba(99, 102, 241, 0.8);
+  transform: scale(0.9);
+}
+
+.game-control i {
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+.control-shoot {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.control-shoot:active,
+.control-shoot.active {
+  background: rgba(239, 68, 68, 0.6);
+  border-color: rgba(239, 68, 68, 0.8);
+}
+
+.control-thrust {
+  background: rgba(34, 197, 94, 0.25);
+  border-color: rgba(34, 197, 94, 0.5);
+}
+
+.control-thrust:active,
+.control-thrust.active {
+  background: rgba(34, 197, 94, 0.6);
+  border-color: rgba(34, 197, 94, 0.8);
+}
+
+@media (min-width: 768px) {
+  .mobile-game-controls {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .game-control {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .game-control i {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .mobile-game-controls {
+    padding: 1rem;
+  }
+}
