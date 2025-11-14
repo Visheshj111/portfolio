@@ -15,7 +15,6 @@
   <meta property="og:description" content="BCA student from ICCS, Pune. Full-stack developer passionate about building intuitive web apps, engaging games, and data-driven solutions." />
   
   <link rel="canonical" href="https://your-domain.example/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,17 +35,28 @@
 <body class="antialiased">
   <a href="#home" class="skip-link">Skip to main content</a>
 
+  <!-- Theme Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+    <i data-lucide="moon" class="theme-icon"></i>
+    <i data-lucide="sun" class="theme-icon"></i>
+  </button>
+
   <!-- Pill Navigation -->
   <div class="pill-nav-container">
     <nav class="pill-nav" aria-label="Primary">
-      <a href="#home" class="pill-logo" aria-label="Home">
-        <span class="logo-emoji">🚀</span>
-      </a>
-
       <div class="pill-nav-items desktop-only">
         <ul class="pill-list" role="menubar">
           <li role="none">
-            <a href="#about" class="pill" role="menuitem" data-nav-item="0">
+            <a href="#home" class="pill" role="menuitem" data-nav-item="0">
+              <span class="hover-circle" aria-hidden="true"></span>
+              <span class="label-stack">
+                <span class="pill-label">Home</span>
+                <span class="pill-label-hover" aria-hidden="true">Home</span>
+              </span>
+            </a>
+          </li>
+          <li role="none">
+            <a href="#about" class="pill" role="menuitem" data-nav-item="1">
               <span class="hover-circle" aria-hidden="true"></span>
               <span class="label-stack">
                 <span class="pill-label">About</span>
@@ -55,7 +65,7 @@
             </a>
           </li>
           <li role="none">
-            <a href="#projects" class="pill" role="menuitem" data-nav-item="1">
+            <a href="#projects" class="pill" role="menuitem" data-nav-item="2">
               <span class="hover-circle" aria-hidden="true"></span>
               <span class="label-stack">
                 <span class="pill-label">Projects</span>
@@ -64,7 +74,7 @@
             </a>
           </li>
           <li role="none">
-            <a href="#experience" class="pill" role="menuitem" data-nav-item="2">
+            <a href="#experience" class="pill" role="menuitem" data-nav-item="3">
               <span class="hover-circle" aria-hidden="true"></span>
               <span class="label-stack">
                 <span class="pill-label">Experience</span>
@@ -73,7 +83,7 @@
             </a>
           </li>
           <li role="none">
-            <a href="#contact" class="pill" role="menuitem" data-nav-item="3">
+            <a href="#contact" class="pill" role="menuitem" data-nav-item="4">
               <span class="hover-circle" aria-hidden="true"></span>
               <span class="label-stack">
                 <span class="pill-label">Contact</span>
@@ -99,12 +109,6 @@
       </ul>
     </div>
   </div>
-
-  <!-- Theme Toggle (Floating) -->
-  <button id="theme-toggle" class="theme-toggle-floating" aria-label="Toggle theme">
-    <i data-lucide="sun" id="theme-icon-light"></i>
-    <i data-lucide="moon" id="theme-icon-dark" class="hidden"></i>
-  </button>
 
   <!-- Animated Background -->
   <div class="bg-animation">
@@ -165,18 +169,40 @@
         </div>
       </div>
 
+      <!-- GitHub Stats Card - Top Right Corner -->
+      <div class="github-stats-card">
+        <h3 class="stats-title">GitHub Activity</h3>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-big-number">361</div>
+            <div class="stat-big-label">Contributions</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-big-number">26</div>
+            <div class="stat-big-label">Active Days</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Section Title -->
+      <div class="languages-title">TOP LANGUAGES ON GITHUB:</div>
+
       <div class="hero-visual">
-        <div class="floating-card card-1">
-          <i data-lucide="code-2"></i>
-          <span>Full Stack</span>
+        <!-- Language Cards with Icons -->
+        <div class="floating-card card-0" data-language="typescript">
+          <img src="scripts/Images/image-removebg-preview.png" alt="TypeScript" class="lang-icon" />
         </div>
-        <div class="floating-card card-2">
-          <i data-lucide="database"></i>
-          <span>MERN Stack</span>
+        <div class="floating-card card-1" data-language="java">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="lang-icon" />
         </div>
-        <div class="floating-card card-3">
-          <i data-lucide="gamepad-2"></i>
-          <span>Game Dev</span>
+        <div class="floating-card card-2" data-language="css">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="lang-icon" />
+        </div>
+        <div class="floating-card card-3" data-language="javascript">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-plain.svg" alt="JavaScript" class="lang-icon" />
+        </div>
+        <div class="floating-card card-4" data-language="html">
+          <img src="scripts/Images/image.png" alt="HTML" class="lang-icon" />
         </div>
       </div>
     </section>
@@ -355,20 +381,19 @@
                   <p>Deployed on Render/Vercel with MongoDB Atlas</p>
                 </div>
               </div>
-            </div>
-
-            <div class="project-stats">
-              <div class="stat">
-                <i data-lucide="users"></i>
-                <span>200+ Users Tested</span>
+              <div class="feature-item">
+                <i data-lucide="user-check"></i>
+                <div>
+                  <strong>200+ Active Users</strong>
+                  <p>Successfully tested by students across multiple sessions</p>
+                </div>
               </div>
-              <div class="stat">
-                <i data-lucide="shield-check"></i>
-                <span>Zero Security Breaches</span>
-              </div>
-              <div class="stat">
-                <i data-lucide="clock"></i>
-                <span>Real-time Processing</span>
+              <div class="feature-item">
+                <i data-lucide="award"></i>
+                <div>
+                  <strong>High Reliability</strong>
+                  <p>99.9% uptime with robust error handling</p>
+                </div>
               </div>
             </div>
           </div>
@@ -478,13 +503,20 @@
       <div class="controls-list">
         <div class="control-item">
           <span>Thrust Forward</span>
-          <kbd>↑</kbd>
+          <div class="kbd-group">
+            <kbd>↑</kbd>
+            <span class="or-text">or</span>
+            <kbd>W</kbd>
+          </div>
         </div>
         <div class="control-item">
           <span>Rotate Ship</span>
           <div class="kbd-group">
             <kbd>←</kbd>
             <kbd>→</kbd>
+            <span class="or-text">or</span>
+            <kbd>A</kbd>
+            <kbd>D</kbd>
           </div>
         </div>
         <div class="control-item">

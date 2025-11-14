@@ -262,8 +262,8 @@
       ctx.fill();
     });
 
-    // Handle touch controls
-    if (state.touchControls.thrust || state.keys['ArrowUp']) {
+    // Handle touch controls and keyboard (Arrow keys + WASD)
+    if (state.touchControls.thrust || state.keys['ArrowUp'] || state.keys['w'] || state.keys['W']) {
       p.isThrusting = true;
       p.speed = Math.min(5, p.speed + p.thrust);
       if (state.audio.ready && state.audio.thrustOsc.state !== 'started') {
@@ -276,9 +276,9 @@
       }
     }
 
-    if (state.touchControls.rotateLeft || state.keys['ArrowLeft']) {
+    if (state.touchControls.rotateLeft || state.keys['ArrowLeft'] || state.keys['a'] || state.keys['A']) {
       p.rotation = 0.05;
-    } else if (state.touchControls.rotateRight || state.keys['ArrowRight']) {
+    } else if (state.touchControls.rotateRight || state.keys['ArrowRight'] || state.keys['d'] || state.keys['D']) {
       p.rotation = -0.05;
     } else {
       p.rotation = 0;
