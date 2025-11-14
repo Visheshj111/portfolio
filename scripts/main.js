@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100);
 
   const themeToggle = document.getElementById('theme-toggle');
+  const themeTransition = document.getElementById('theme-transition');
   const sections = document.querySelectorAll('section[id]');
+  let isTransitioning = false;
 
-  // Theme Toggle
+  // Theme Toggle with Radial Transition
   const applyTheme = (theme) => {
     if (theme === 'light') {
       document.body.classList.add('light-mode');
@@ -30,14 +32,49 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTheme(theme);
   };
 
+  // Apply initial theme
   applyTheme(getPreferredTheme());
 
-  const toggleTheme = () => {
+  const toggleThemeWithTransition = (event) => {
+    if (isTransitioning) return;
+    
+    isTransitioning = true;
     const isLight = document.body.classList.contains('light-mode');
-    setTheme(isLight ? 'dark' : 'light');
+    const newTheme = isLight ? 'dark' : 'light';
+    
+    // Get button position
+    const rect = themeToggle.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    
+    // Set ripple origin and color
+    const newBgColor = newTheme === 'dark' ? '#0a0a0f' : '#f8f9fa';
+    themeTransition.style.setProperty('--ripple-x', `${x}px`);
+    themeTransition.style.setProperty('--ripple-y', `${y}px`);
+    themeTransition.style.setProperty('--ripple-color', newBgColor);
+    
+    // Change theme immediately so colors transition smoothly
+    setTheme(newTheme);
+    
+    // Start ripple animation
+    themeTransition.classList.add('transitioning');
+    
+    // Cleanup after animation
+    setTimeout(() => {
+      themeTransition.classList.remove('transitioning');
+      isTransitioning = false;
+    }, 850);
   };
 
-  themeToggle?.addEventListener('click', toggleTheme);
+  themeToggle?.addEventListener('click', toggleThemeWithTransition);
+  
+  // Keyboard support
+  themeToggle?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleThemeWithTransition(e);
+    }
+  });
 
   // Fetch GitHub Stats
   const fetchGitHubStats = async () => {
