@@ -39,6 +39,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   themeToggle?.addEventListener('click', toggleTheme);
 
+  // Fetch GitHub Stats
+  const fetchGitHubStats = async () => {
+    const username = 'Visheshj111'; 
+    const contributionsEl = document.getElementById('github-contributions');
+    const streakEl = document.getElementById('github-streak');
+    
+    try {
+      // Use GitHub's contribution API through a CORS proxy
+      const year = new Date().getFullYear();
+      const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`);
+      
+      if (!response.ok) throw new Error('Failed to fetch');
+      
+      const data = await response.json();
+      
+      // Calculate total contributions and active days for the year
+      let totalContributions = 0;
+      let activeDays = 0;
+      
+      if (data.contributions) {
+        // Count total contributions and active days (days with at least 1 contribution)
+        data.contributions.forEach(day => {
+          totalContributions += day.count;
+          if (day.count > 0) {
+            activeDays++;
+          }
+        });
+      }
+      
+      // Update UI with exact numbers
+      if (contributionsEl) {
+        contributionsEl.textContent = totalContributions || 0;
+      }
+      if (streakEl) {
+        streakEl.textContent = activeDays || 0;
+      }
+    } catch (error) {
+      console.error('Error fetching GitHub stats:', error);
+      // Fallback to static numbers
+      if (contributionsEl) contributionsEl.textContent = '360';
+      if (streakEl) streakEl.textContent = '26';
+    }
+  };
+
+  // Call the function
+  fetchGitHubStats();
+
   // Fade in animations
   const fadeElements = document.querySelectorAll('.glass-card, .project-card, .skill-pill');
   const fadeObserver = new IntersectionObserver((entries) => {
