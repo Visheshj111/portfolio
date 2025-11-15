@@ -140,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = 'Visheshj111'; 
     const contributionsWrapper = document.querySelector('#github-contributions .counter');
     const streakWrapper = document.querySelector('#github-streak .counter');
+
+    if (!contributionsWrapper || !streakWrapper) return;
     
     try {
       const year = new Date().getFullYear();
@@ -158,36 +160,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
       
-      if (contributionsWrapper) {
-        if (!contributionsWrapper.dataset.value) {
-          renderCounter(contributionsWrapper, totalContributions || 0);
-        } else {
-          animateCounter(contributionsWrapper, totalContributions || 0);
-        }
+      if (!contributionsWrapper.dataset.value) {
+        renderCounter(contributionsWrapper, totalContributions || 0);
+      } else {
+        animateCounter(contributionsWrapper, totalContributions || 0);
       }
 
-      if (streakWrapper) {
-        if (!streakWrapper.dataset.value) {
-          renderCounter(streakWrapper, activeDays || 0);
-        } else {
-          animateCounter(streakWrapper, activeDays || 0);
-        }
+      if (!streakWrapper.dataset.value) {
+        renderCounter(streakWrapper, activeDays || 0);
+      } else {
+        animateCounter(streakWrapper, activeDays || 0);
       }
     } catch (error) {
       console.error('Error fetching GitHub stats:', error);
-      if (contributionsWrapper) {
-        if (!contributionsWrapper.dataset.value) {
-          renderCounter(contributionsWrapper, 360);
-        } else {
-          animateCounter(contributionsWrapper, 360);
-        }
+      if (!contributionsWrapper.dataset.value) {
+        renderCounter(contributionsWrapper, 360);
+      } else {
+        animateCounter(contributionsWrapper, 360);
       }
-      if (streakWrapper) {
-        if (!streakWrapper.dataset.value) {
-          renderCounter(streakWrapper, 26);
-        } else {
-          animateCounter(streakWrapper, 26);
-        }
+      if (!streakWrapper.dataset.value) {
+        renderCounter(streakWrapper, 26);
+      } else {
+        animateCounter(streakWrapper, 26);
       }
     }
   };
