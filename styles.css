@@ -635,6 +635,43 @@ body.light-mode .github-stats-card:hover {
   transform: translateY(-4px);
 }
 
+.stat-big-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.counter {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-digit {
+  position: relative;
+  width: 0.7em;
+  height: 1.3em;
+  overflow: hidden;
+}
+
+.counter-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.counter-digit span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.3em;
+}
+
 .stats-title {
   font-size: 14px;
   font-weight: 700;

@@ -76,47 +76,119 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Simple digit counter helpers for GitHub stats
+  function renderCounter(container, value) {
+    const targetStr = String(Math.max(0, Math.floor(value)));
+    const length = targetStr.length;
+    container.innerHTML = '';
+
+    // Build all digits starting at 0 so we can animate up
+    for (let i = 0; i < length; i++) {
+      const digitEl = document.createElement('div');
+      digitEl.className = 'counter-digit';
+
+      const strip = document.createElement('div');
+      strip.className = 'counter-strip';
+
+      for (let n = 0; n < 10; n++) {
+        const span = document.createElement('span');
+        span.textContent = n;
+        strip.appendChild(span);
+      }
+
+      // start at 0 position
+      strip.style.transform = 'translateY(0em)';
+
+      digitEl.appendChild(strip);
+      container.appendChild(digitEl);
+    }
+
+    // initial state: all zeros
+    container.dataset.value = '0'.repeat(length);
+
+    // animate to target on next frame
+    requestAnimationFrame(() => {
+      animateCounter(container, targetStr);
+    });
+  }
+
+  function animateCounter(container, value) {
+    const oldStr = container.dataset.value || '0';
+    const newStr = typeof value === 'string'
+      ? value
+      : String(Math.max(0, Math.floor(value)));
+
+    if (oldStr.length !== newStr.length) {
+      renderCounter(container, newStr);
+      return;
+    }
+
+    const strips = container.querySelectorAll('.counter-digit .counter-strip');
+    for (let i = 0; i < newStr.length; i++) {
+      const digit = parseInt(newStr[i], 10) || 0;
+      const strip = strips[i];
+      if (!strip) continue;
+      const offset = -digit * 1.3;
+      strip.style.transform = `translateY(${offset}em)`;
+    }
+
+    container.dataset.value = newStr;
+  }
+
   // Fetch GitHub Stats
   const fetchGitHubStats = async () => {
     const username = 'Visheshj111'; 
-    const contributionsEl = document.getElementById('github-contributions');
-    const streakEl = document.getElementById('github-streak');
+    const contributionsWrapper = document.querySelector('#github-contributions .counter');
+    const streakWrapper = document.querySelector('#github-streak .counter');
     
     try {
-      // Use GitHub's contribution API through a CORS proxy
       const year = new Date().getFullYear();
       const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`);
-      
       if (!response.ok) throw new Error('Failed to fetch');
       
       const data = await response.json();
       
-      // Calculate total contributions and active days for the year
       let totalContributions = 0;
       let activeDays = 0;
       
       if (data.contributions) {
-        // Count total contributions and active days (days with at least 1 contribution)
         data.contributions.forEach(day => {
           totalContributions += day.count;
-          if (day.count > 0) {
-            activeDays++;
-          }
+          if (day.count > 0) activeDays++;
         });
       }
       
-      // Update UI with exact numbers
-      if (contributionsEl) {
-        contributionsEl.textContent = totalContributions || 0;
+      if (contributionsWrapper) {
+        if (!contributionsWrapper.dataset.value) {
+          renderCounter(contributionsWrapper, totalContributions || 0);
+        } else {
+          animateCounter(contributionsWrapper, totalContributions || 0);
+        }
       }
-      if (streakEl) {
-        streakEl.textContent = activeDays || 0;
+
+      if (streakWrapper) {
+        if (!streakWrapper.dataset.value) {
+          renderCounter(streakWrapper, activeDays || 0);
+        } else {
+          animateCounter(streakWrapper, activeDays || 0);
+        }
       }
     } catch (error) {
       console.error('Error fetching GitHub stats:', error);
-      // Fallback to static numbers
-      if (contributionsEl) contributionsEl.textContent = '360';
-      if (streakEl) streakEl.textContent = '26';
+      if (contributionsWrapper) {
+        if (!contributionsWrapper.dataset.value) {
+          renderCounter(contributionsWrapper, 360);
+        } else {
+          animateCounter(contributionsWrapper, 360);
+        }
+      }
+      if (streakWrapper) {
+        if (!streakWrapper.dataset.value) {
+          renderCounter(streakWrapper, 26);
+        } else {
+          animateCounter(streakWrapper, 26);
+        }
+      }
     }
   };
 
