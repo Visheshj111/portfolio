@@ -385,6 +385,7 @@ body {
   font-weight: 600;
   color: var(--text-primary);
   margin-top: -8px;
+  white-space: normal;
 }
 
 .hero-description {
