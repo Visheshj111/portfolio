@@ -233,6 +233,7 @@
     const updateActiveState = () => {
       const sections = document.querySelectorAll('section[id], header[id]');
       const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
       sections.forEach((section, index) => {
         const sectionTop = section.offsetTop - 50;
@@ -240,9 +241,16 @@
         const sectionId = section.getAttribute('id');
 
         const isFirst = index === 0;
-        const inView = isFirst
-          ? scrollY < sectionTop + sectionHeight
-          : scrollY >= sectionTop && scrollY < sectionTop + sectionHeight;
+        const isLast = index === sections.length - 1;
+
+        let inView;
+        if (isFirst) {
+          inView = scrollY < sectionTop + sectionHeight;
+        } else if (isLast) {
+          inView = scrollY >= sectionTop - 100 || scrollY >= maxScroll - 10;
+        } else {
+          inView = scrollY >= sectionTop && scrollY < sectionTop + sectionHeight;
+        }
 
         if (inView) {
           pills.forEach(pill => {
