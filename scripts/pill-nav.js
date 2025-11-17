@@ -159,6 +159,14 @@
       });
     });
 
+    // Pill click handlers: keep clicked pill highlighted until scroll changes section
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+      });
+    });
+
     // Logo hover animation
     if (logoLink && logoEmoji) {
       logoLink.addEventListener('mouseenter', () => {
@@ -223,15 +231,20 @@
 
     // Active state management
     const updateActiveState = () => {
-      const sections = document.querySelectorAll('section[id]');
+      const sections = document.querySelectorAll('section[id], header[id]');
       const scrollY = window.scrollY;
 
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
+      sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop - 50;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
 
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        const isFirst = index === 0;
+        const inView = isFirst
+          ? scrollY < sectionTop + sectionHeight
+          : scrollY >= sectionTop && scrollY < sectionTop + sectionHeight;
+
+        if (inView) {
           pills.forEach(pill => {
             pill.classList.remove('is-active');
             if (pill.getAttribute('href') === `#${sectionId}`) {

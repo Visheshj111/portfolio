@@ -1892,6 +1892,11 @@ body * {
   will-change: transform, opacity;
 }
 
+.pill.is-active {
+  background: var(--accent-secondary);
+  color: var(--bg-primary);
+}
+
 .pill.is-active::after {
   content: '';
   position: absolute;
