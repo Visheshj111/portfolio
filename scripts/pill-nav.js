@@ -126,38 +126,38 @@
       });
     }
 
-    // Pill hover handlers
-    pills.forEach((pill, index) => {
-      pill.addEventListener('mouseenter', () => {
-        const tl = tlRefs[index];
-        if (!tl) return;
-        
-        if (activeTweenRefs[index]) {
-          activeTweenRefs[index].kill();
-        }
-        
-        activeTweenRefs[index] = tl.tweenTo(tl.duration(), {
-          duration: 0.3,
-          ease: 'power3.out',
-          overwrite: 'auto'
-        });
-      });
+    // Pill hover handlers - disabled
+    // pills.forEach((pill, index) => {
+    //   pill.addEventListener('mouseenter', () => {
+    //     const tl = tlRefs[index];
+    //     if (!tl) return;
+    //     
+    //     if (activeTweenRefs[index]) {
+    //       activeTweenRefs[index].kill();
+    //     }
+    //     
+    //     activeTweenRefs[index] = tl.tweenTo(tl.duration(), {
+    //       duration: 0.3,
+    //       ease: 'power3.out',
+    //       overwrite: 'auto'
+    //     });
+    //   });
 
-      pill.addEventListener('mouseleave', () => {
-        const tl = tlRefs[index];
-        if (!tl) return;
-        
-        if (activeTweenRefs[index]) {
-          activeTweenRefs[index].kill();
-        }
-        
-        activeTweenRefs[index] = tl.tweenTo(0, {
-          duration: 0.2,
-          ease: 'power3.out',
-          overwrite: 'auto'
-        });
-      });
-    });
+    //   pill.addEventListener('mouseleave', () => {
+    //     const tl = tlRefs[index];
+    //     if (!tl) return;
+    //     
+    //     if (activeTweenRefs[index]) {
+    //       activeTweenRefs[index].kill();
+    //     }
+    //     
+    //     activeTweenRefs[index] = tl.tweenTo(0, {
+    //       duration: 0.2,
+    //       ease: 'power3.out',
+    //       overwrite: 'auto'
+    //     });
+    //   });
+    // });
 
     // Pill click handlers: keep clicked pill highlighted until scroll changes section
     pills.forEach(pill => {
