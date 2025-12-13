@@ -1408,10 +1408,37 @@ kbd {
   background: rgba(0, 0, 0, 0.95);
 }
 
-.game-score {
+.game-scores-container {
   position: absolute;
   top: 24px;
   right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.game-high-score {
+  color: #fbbf24;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.game-high-score.new-high-score {
+  color: #34d399;
+  opacity: 1;
+  animation: highScorePulse 0.5s ease;
+}
+
+@keyframes highScorePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.game-score {
   color: white;
   font-family: 'Space Grotesk', monospace;
   font-size: 20px;
@@ -1463,6 +1490,32 @@ kbd {
   padding: 40px 0;
   color: var(--text-tertiary);
   border-top: 1px solid var(--glass-border);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  opacity: 0.8;
+}
+
+.view-counter svg {
+  width: 16px;
+  height: 16px;
+}
+
+#view-count {
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 /* ==================== Utilities ==================== */
