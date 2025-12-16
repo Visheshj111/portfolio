@@ -2,22 +2,12 @@
 (function () {
   console.log('Game script loaded');
 
-  // Firebase configuration - loaded from external file (firebase-config.js)
-  // The config file is gitignored to keep API keys private
-  const firebaseConfig = window.FIREBASE_CONFIG || null;
-
-  // Initialize Firebase
-  let database = null;
-  try {
-    if (typeof firebase !== 'undefined' && firebaseConfig && firebaseConfig.apiKey) {
-      firebase.initializeApp(firebaseConfig);
-      database = firebase.database();
-      console.log('Firebase initialized');
-    } else {
-      console.log('Firebase not configured, using local storage only');
-    }
-  } catch (error) {
-    console.warn('Firebase initialization failed:', error);
+  // Use globally initialized Firebase database
+  const database = window.firebaseDB || null;
+  if (database) {
+    console.log('Using global Firebase database for game');
+  } else {
+    console.log('Firebase not available, using local storage only');
   }
 
   const state = {
@@ -638,39 +628,56 @@
   const fetchGlobalHighScore = () => {
     if (!database) {
       console.log('Firebase not available, using local high score');
+      if (state.dom.highScoreEl) {
+        state.dom.highScoreEl.textContent = `HIGH SCORE: ${state.highScore}`;
+      }
       return;
     }
     
-    const highScoreRef = database.ref('highscore');
+    const highScoreRef = database.ref('game/highscore');
     highScoreRef.on('value', (snapshot) => {
       const data = snapshot.val();
+      console.log('Firebase highscore data:', data);
       if (data) {
         state.globalHighScore = data.score || 0;
-        state.globalHighScoreHolder = data.name || 'Anonymous';
+        state.globalHighScoreHolder = data.name || 'Player';
         
-        // Update display if global score is higher than local
+        // Update display and local state if global score is higher
         if (state.globalHighScore > state.highScore) {
           state.highScore = state.globalHighScore;
-          if (state.dom.highScoreEl) {
-            state.dom.highScoreEl.textContent = `HIGH SCORE: ${state.highScore} (${state.globalHighScoreHolder})`;
-          }
+          localStorage.setItem('asteroids-high-score', state.highScore);
+        }
+        if (state.dom.highScoreEl) {
+          state.dom.highScoreEl.textContent = `HIGH SCORE: ${state.highScore}`;
+        }
+      } else {
+        // No global score yet, show local
+        if (state.dom.highScoreEl) {
+          state.dom.highScoreEl.textContent = `HIGH SCORE: ${state.highScore}`;
         }
       }
       console.log('Global high score fetched:', state.globalHighScore);
+    }, (error) => {
+      console.error('Error fetching high score:', error);
+      if (state.dom.highScoreEl) {
+        state.dom.highScoreEl.textContent = `HIGH SCORE: ${state.highScore}`;
+      }
     });
   };
 
   // Update global high score in Firebase
-  const updateGlobalHighScore = (score, name = 'Anonymous') => {
+  const updateGlobalHighScore = (score, name = 'Player') => {
     if (!database) {
       console.log('Firebase not available');
       return;
     }
     
-    const highScoreRef = database.ref('highscore');
+    const highScoreRef = database.ref('game/highscore');
     highScoreRef.once('value').then((snapshot) => {
       const currentData = snapshot.val();
       const currentHighScore = currentData?.score || 0;
+      
+      console.log('Checking if score', score, 'beats current', currentHighScore);
       
       if (score > currentHighScore) {
         highScoreRef.set({
@@ -679,10 +686,13 @@
           timestamp: Date.now()
         }).then(() => {
           console.log('Global high score updated to:', score);
+          state.globalHighScore = score;
         }).catch((error) => {
           console.error('Failed to update global high score:', error);
         });
       }
+    }).catch((error) => {
+      console.error('Error reading current high score:', error);
     });
   };
 

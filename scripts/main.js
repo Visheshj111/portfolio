@@ -355,27 +355,15 @@ function initViewCounter() {
   const viewCountEl = document.getElementById('view-count');
   if (!viewCountEl) return;
 
-  // Check if Firebase is available
-  if (typeof firebase === 'undefined' || !window.FIREBASE_CONFIG) {
+  // Use globally initialized Firebase database
+  const database = window.firebaseDB;
+  if (!database) {
     console.log('Firebase not available for view counter');
     viewCountEl.textContent = '---';
     return;
   }
 
-  // Initialize Firebase if not already done
-  let database;
-  try {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(window.FIREBASE_CONFIG);
-    }
-    database = firebase.database();
-  } catch (error) {
-    console.warn('Firebase init for views failed:', error);
-    return;
-  }
-
   const viewsRef = database.ref('portfolio/views');
-  const uniqueViewsRef = database.ref('portfolio/uniqueVisitors');
 
   // Check if this is a unique visitor (using sessionStorage to count once per session)
   const hasVisited = sessionStorage.getItem('portfolio-visited');
@@ -384,6 +372,10 @@ function initViewCounter() {
     // Increment view count
     viewsRef.transaction((currentViews) => {
       return (currentViews || 0) + 1;
+    }).then(() => {
+      console.log('View count incremented');
+    }).catch((error) => {
+      console.error('Failed to increment view count:', error);
     });
     
     // Mark as visited for this session
@@ -394,6 +386,10 @@ function initViewCounter() {
   viewsRef.on('value', (snapshot) => {
     const views = snapshot.val() || 0;
     viewCountEl.textContent = formatNumber(views);
+    console.log('View count updated:', views);
+  }, (error) => {
+    console.error('Error reading view count:', error);
+    viewCountEl.textContent = '---';
   });
 }
 
