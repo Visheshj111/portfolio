@@ -848,7 +848,10 @@ body.light-mode .github-stats-card:hover {
 
 /* ==================== Section Styles ==================== */
 .section-container {
-  padding: 120px 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .section-header {

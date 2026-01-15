@@ -1,0 +1,91 @@
+/* Hide project info below card by default, show on hover */
+.tilted-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0 auto;
+}
+.hide-on-tilt {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.tilted-card-figure:hover ~ .hide-on-tilt,
+.tilted-card-figure:focus-within ~ .hide-on-tilt {
+  opacity: 1;
+  pointer-events: auto;
+  max-height: 1000px;
+}
+.hide-on-tilt {
+  opacity: 0;
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s, max-height 0.3s;
+}
+/* Tilted Card Styles */
+.tilted-card-figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.tilted-card-mobile-alert {
+  position: absolute;
+  top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  display: none;
+}
+@media (max-width: 640px) {
+  .tilted-card-mobile-alert {
+    display: block;
+  }
+  .tilted-card-caption {
+    display: none;
+  }
+}
+.tilted-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(.25,.46,.45,.94);
+}
+.tilted-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  border-radius: 15px;
+  will-change: transform;
+  transform: translateZ(0);
+}
+.tilted-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+  transform: translateZ(30px);
+}
+.tilted-card-caption {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 4px 10px;
+  font-size: 10px;
+  color: #2d2d2d;
+  opacity: 0;
+  z-index: 3;
+  transition: opacity 0.2s;
+}
