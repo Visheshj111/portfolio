@@ -151,12 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       
       let totalContributions = 0;
-      let activeDays = 0;
+      let highestStreak = 0;
+      let currentStreak = 0;
       
       if (data.contributions) {
         data.contributions.forEach(day => {
           totalContributions += day.count;
-          if (day.count > 0) activeDays++;
+          if (day.count > 0) {
+            currentStreak++;
+            if (currentStreak > highestStreak) {
+              highestStreak = currentStreak;
+            }
+          } else {
+            currentStreak = 0;
+          }
         });
       }
       
@@ -167,9 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!streakWrapper.dataset.value) {
-        renderCounter(streakWrapper, activeDays || 0);
+        renderCounter(streakWrapper, highestStreak || 0);
       } else {
-        animateCounter(streakWrapper, activeDays || 0);
+        animateCounter(streakWrapper, highestStreak || 0);
       }
     } catch (error) {
       console.error('Error fetching GitHub stats:', error);

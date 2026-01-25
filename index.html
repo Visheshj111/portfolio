@@ -35,7 +35,6 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="styles-tilted-card.css" />
 </head>
 
 <body class="antialiased">
@@ -175,7 +174,7 @@
             <span>Get in Touch</span>
             <i data-lucide="arrow-right" class="btn-icon"></i>
           </a>
-          <a href="https://drive.google.com/file/d/18b_CPKev6ArI4RQXm7YQ9aCXK_gI2wV2/view?usp=sharing" 
+          <a href="https://drive.google.com/file/d/1KsS9zuKNn4rNi-fbHDPk03bqyo0kXpBP/view?usp=sharing" 
              class="btn btn-secondary" target="_blank" rel="noopener">
             <i data-lucide="file-text" class="btn-icon"></i>
             <span>View Resume</span>
@@ -213,7 +212,7 @@
             <div class="stat-big-number" id="github-streak">
               <div class="counter" data-value="0"></div>
             </div>
-            <div class="stat-big-label">Active Days</div>
+            <div class="stat-big-label">Highest Streak</div>
           </div>
         </div>
       </div>
@@ -361,83 +360,175 @@
     <section id="projects" class="section-container" aria-label="Featured Projects">
       <div class="section-header">
         <span class="section-label">My work</span>
-        <h2 class="section-title">Featured Project</h2>
+        <h2 class="section-title">Featured Projects</h2>
       </div>
 
-      <div class="projects-showcase" style="background: #f5f6fa; border: none; box-shadow: none; padding: 0; margin: 0; display: flex; justify-content: center; align-items: center;">
-        <div class="tilted-card-wrapper">
-          <figure class="tilted-card-figure glass-card" data-scale="1.08" data-rotate="14">
-            <div class="tilted-card-mobile-alert">This effect is not optimized for mobile. Check on desktop.</div>
-            <div class="tilted-card-inner" style="width:320px;height:220px;">
-              <img src="https://placehold.co/320x220/4338ca/ffffff?text=Aptitude+Platform" alt="Aptitude Assessment Platform" class="tilted-card-img" style="width:320px;height:220px;" />
-              <div class="tilted-card-overlay" style="display: flex; justify-content: center; align-items: center; width:100%;height:100%;">
-                <a href="https://github.com/Visheshj111/aptitude-test-app" target="_blank" rel="noopener" class="github-badge" style="background:rgba(255,255,255,0.85);padding:8px 18px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);font-weight:600;display:flex;align-items:center;gap:8px;">
-                  <i data-lucide="github"></i>
-                  <span>View on GitHub</span>
-                </a>
-              </div>
+      <div class="projects-grid">
+        <!-- Project 1: Aptitude Assessment Platform -->
+        <div class="project-card-container">
+          <a href="https://github.com/Visheshj111/aptitude-test-app" target="_blank" rel="noopener" class="project-card-link">
+            <div class="project-card" data-project="assessment">
+              <figure class="tilted-card-figure">
+                <div class="tilted-card-inner glass-card">
+                  <img src="https://placehold.co/500x280/4338ca/ffffff?text=Assessment+Platform" alt="Assessment Platform" class="tilted-card-img" />
+                  <div class="project-card-footer">
+                    <div class="project-card-info">
+                      <h3 class="project-card-title">Aptitude Assessment Platform</h3>
+                      <div class="project-mini-tags">
+                        <span>MongoDB</span>
+                        <span>Node.js</span>
+                        <span>Express.js</span>
+                      </div>
+                    </div>
+                    <button class="expand-btn" aria-label="View details" data-expand="assessment">
+                      <i data-lucide="maximize-2"></i>
+                    </button>
+                  </div>
+                </div>
+              </figure>
             </div>
-            <figcaption class="tilted-card-caption">Full-Stack Aptitude Assessment Platform</figcaption>
-          </figure>
-          <div class="project-hero-content hide-on-tilt">
-            <div class="project-hero-header">
-              <div class="project-tags">
-                <span class="project-tag">MongoDB</span>
-                <span class="project-tag">Node.js</span>
-                <span class="project-tag">Express.js</span>
-                <span class="project-tag">JWT</span>
-                <span class="project-tag">Render</span>
+          </a>
+          
+          <!-- Expanded Project Info Modal -->
+          <div class="project-modal" id="modal-assessment">
+            <div class="project-modal-content glass-card">
+              <button class="modal-close-btn" aria-label="Close">
+                <i data-lucide="x"></i>
+              </button>
+              <div class="project-modal-header">
+                <div class="project-tags">
+                  <span class="project-tag">MongoDB</span>
+                  <span class="project-tag">Node.js</span>
+                  <span class="project-tag">Express.js</span>
+                  <span class="project-tag">JWT</span>
+                  <span class="project-tag">Render</span>
+                </div>
+                <h3 class="project-modal-title">Aptitude Assessment Platform</h3>
               </div>
-              <h3 class="project-hero-title">Full-Stack Aptitude Assessment Platform</h3>
+              
+              <p class="project-modal-description">
+                Developed a comprehensive secure web-based testing platform supporting 200+ concurrent students 
+                with real-time auto-grading and advanced anti-cheat detection including tab-switching monitoring, 
+                developer tools blocking, and automatic submission on violations.
+              </p>
+
+              <div class="project-highlights">
+                <div class="highlight-chip">
+                  <i data-lucide="shield-check"></i>
+                  <span>JWT + Anti-Cheat</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="users"></i>
+                  <span>200+ Concurrent Users</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="zap"></i>
+                  <span>Real-time Grading</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="cloud"></i>
+                  <span>Cloud Deployed</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="check-circle"></i>
+                  <span>99.9% Uptime</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="monitor"></i>
+                  <span>Tab-Switch Detection</span>
+                </div>
+              </div>
+
+              <a href="https://github.com/Visheshj111/aptitude-test-app" target="_blank" rel="noopener" class="btn btn-primary project-modal-btn">
+                <i data-lucide="github" class="btn-icon"></i>
+                <span>View on GitHub</span>
+              </a>
             </div>
-            <p class="project-hero-description">
-              Developed a comprehensive secure web-based testing platform supporting 200+ concurrent students 
-              with real-time auto-grading and advanced anti-cheat detection including tab-switching monitoring, 
-              developer tools blocking, and automatic submission on violations.
-            </p>
-            <div class="project-features">
-              <div class="feature-item">
-                <i data-lucide="shield-check"></i>
-                <div>
-                  <strong>Advanced Security</strong>
-                  <p>JWT authentication with anti-cheat detection</p>
+          </div>
+        </div>
+
+        <!-- Project 2: Persisto - AI-Powered Learning Platform -->
+        <div class="project-card-container">
+          <a href="https://github.com/Visheshj111/Persisto" target="_blank" rel="noopener" class="project-card-link">
+            <div class="project-card" data-project="persisto">
+              <div class="project-award-badge">
+                <i data-lucide="trophy"></i>
+              </div>
+              <figure class="tilted-card-figure">
+                <div class="tilted-card-inner glass-card">
+                  <img src="https://placehold.co/500x280/10b981/ffffff?text=Persisto" alt="Persisto - Learning Platform" class="tilted-card-img" />
+                  <div class="project-card-footer">
+                    <div class="project-card-info">
+                      <h3 class="project-card-title">Persisto — Learning Platform</h3>
+                      <div class="project-mini-tags">
+                        <span>React</span>
+                        <span>AWS</span>
+                        <span>OpenAI</span>
+                      </div>
+                    </div>
+                    <button class="expand-btn" aria-label="View details" data-expand="persisto">
+                      <i data-lucide="maximize-2"></i>
+                    </button>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </a>
+          
+          <!-- Expanded Project Info Modal -->
+          <div class="project-modal" id="modal-persisto">
+            <div class="project-modal-content glass-card">
+              <button class="modal-close-btn" aria-label="Close">
+                <i data-lucide="x"></i>
+              </button>
+              <div class="project-modal-header">
+                <div class="project-tags">
+                  <span class="project-tag">React</span>
+                  <span class="project-tag">Node.js</span>
+                  <span class="project-tag">MongoDB</span>
+                  <span class="project-tag">AWS</span>
+                  <span class="project-tag">OpenAI API</span>
+                </div>
+                <h3 class="project-modal-title">Persisto — AI‑Powered Flow‑Based Learning Platform</h3>
+              </div>
+              
+              <p class="project-modal-description">
+                A platform designed to keep learners consistent by generating personalized roadmaps and 
+                giving one realistic, skill‑matched task per day. Selected among Top 10 teams at a 
+                State‑Level OpenAI Hackathon from 250+ submissions and 700+ participants.
+              </p>
+
+              <div class="project-highlights">
+                <div class="highlight-chip highlight-gold">
+                  <i data-lucide="trophy"></i>
+                  <span>Top 10 Hackathon</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="brain"></i>
+                  <span>AI Roadmaps</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="target"></i>
+                  <span>Daily Flow Tasks</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="heart"></i>
+                  <span>Guilt-Free Progress</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="message-circle"></i>
+                  <span>ChatGPT Tutor</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="users"></i>
+                  <span>Social Motivation</span>
                 </div>
               </div>
-              <div class="feature-item">
-                <i data-lucide="users"></i>
-                <div>
-                  <strong>Scalable Architecture</strong>
-                  <p>Supports 200+ concurrent users with optimized connection pooling</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <i data-lucide="zap"></i>
-                <div>
-                  <strong>Real-time Grading</strong>
-                  <p>Instant results with automated scoring mechanisms</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <i data-lucide="cloud"></i>
-                <div>
-                  <strong>Cloud Deployment</strong>
-                  <p>Deployed on Render/Vercel with MongoDB Atlas</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <i data-lucide="user-check"></i>
-                <div>
-                  <strong>200+ Active Users</strong>
-                  <p>Successfully tested by students across multiple sessions</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <i data-lucide="award"></i>
-                <div>
-                  <strong>High Reliability</strong>
-                  <p>99.9% uptime with robust error handling</p>
-                </div>
-              </div>
+
+              <a href="https://github.com/Visheshj111/portfolio" target="_blank" rel="noopener" class="btn btn-primary project-modal-btn">
+                <i data-lucide="github" class="btn-icon"></i>
+                <span>View on GitHub</span>
+              </a>
             </div>
           </div>
         </div>
@@ -546,78 +637,28 @@
       <div class="controls-list">
         <div class="control-item">
           <span>Thrust Forward</span>
-          <div class="kbd-group">
-            <kbd>↑</kbd>
-            <span class="or-text">or</span>
-            <kbd>W</kbd>
-          </div>
+          <kbd>W</kbd>
         </div>
         <div class="control-item">
-          <span>Rotate Ship</span>
-          <div class="kbd-group">
-            <kbd>←</kbd>
-            <kbd>→</kbd>
-            <span class="or-text">or</span>
-            <kbd>A</kbd>
-            <kbd>D</kbd>
-          </div>
+          <span>Rotate Left</span>
+          <kbd>A</kbd>
+        </div>
+        <div class="control-item">
+          <span>Rotate Right</span>
+          <kbd>D</kbd>
         </div>
         <div class="control-item">
           <span>Shoot</span>
           <kbd>Space</kbd>
         </div>
-        <div class="control-item">
-          <span>Restart</span>
-          <kbd>R</kbd>
-        </div>
-        <div class="control-item">
-          <span>Exit</span>
-          <kbd>Esc</kbd>
-        </div>
       </div>
-      <button id="start-game-btn" class="btn btn-primary btn-large">Start Game</button>
+      <button class="btn btn-primary" onclick="startGame()">Start Game</button>
     </div>
   </div>
-
-  <div id="game-overlay" class="game-overlay hidden">
-  <div class="game-scores-container">
-    <div class="game-high-score" id="game-high-score">HIGH SCORE: 0</div>
-    <div class="game-score" id="game-score">SCORE: 0</div>
-  </div>
-  <div id="game-message" class="game-message hidden">
-    <h2 id="game-over-text">GAME OVER</h2>
-    <p id="final-score-text"></p>
-    <p>Press 'R' to Restart or tap screen</p>
-  </div>
-  <button id="close-game-btn" class="game-close" aria-label="Close game">
-    <i data-lucide="x"></i>
-  </button>
-  <canvas id="game-canvas"></canvas>
-  
-  <!-- Mobile Touch Controls -->
-  <div id="mobile-game-controls" class="mobile-game-controls hidden">
-    <div class="control-group control-group-left">
-      <button class="game-control control-left" aria-label="Rotate left">
-        <i data-lucide="arrow-left"></i>
-      </button>
-      <button class="game-control control-right" aria-label="Rotate right">
-        <i data-lucide="arrow-right"></i>
-      </button>
-    </div>
-    <div class="control-group control-group-right">
-      <button class="game-control control-thrust" aria-label="Thrust">
-        <i data-lucide="arrow-up"></i>
-      </button>
-      <button class="game-control control-shoot" aria-label="Shoot">
-        <i data-lucide="zap"></i>
-      </button>
-    </div>
-    </div>
-    </div>
 
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 Vishesh Jangid. Crafted with ______(wahtever good word comes to your mind).</p>
+      <p>&copy; 2026 Vishesh Jangid. Crafted with passion and precision.</p>
       <div class="view-counter">
         <i data-lucide="eye"></i>
         <span id="view-count">0</span> views
@@ -630,8 +671,8 @@
     <script src="scripts/target-cursor.js"></script>
     <script src="scripts/decrypt-text.js"></script>
     <script src="scripts/pill-nav.js"></script>
+    <script src="scripts/tilted-card.js"></script>
     <script src="scripts/game.js"></script>
     <script src="scripts/main.js"></script>
-  <script src="scripts/tilted-card.js"></script>
 </body>
 </html>
