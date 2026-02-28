@@ -961,6 +961,111 @@ body.light-mode .github-stats-card:hover {
   letter-spacing: 0.05em;
 }
 
+/* ==================== GitHub Contribution Chart ==================== */
+.github-chart-card {
+  margin-top: 40px;
+  padding: 32px;
+  overflow: hidden;
+}
+
+.github-chart-card:hover {
+  transform: translateY(-4px);
+}
+
+.github-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.github-chart-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.github-chart-title i {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-primary);
+}
+
+.github-chart-title h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.github-chart-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color var(--transition-fast);
+}
+
+.github-chart-link:hover {
+  color: var(--accent-primary);
+}
+
+.github-chart-link i {
+  width: 14px;
+  height: 14px;
+}
+
+.github-chart-img-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+  padding: 8px 0;
+}
+
+.github-chart-img {
+  width: 100%;
+  min-width: 600px;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+/* Dark mode: show dark chart, hide light chart */
+.github-chart-dark {
+  display: block;
+}
+.github-chart-light {
+  display: none;
+}
+
+/* Light mode: show light chart, hide dark chart */
+body.light-mode .github-chart-dark {
+  display: none;
+}
+body.light-mode .github-chart-light {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .github-chart-card {
+    padding: 20px;
+    margin-top: 24px;
+  }
+
+  .github-chart-title h3 {
+    font-size: 17px;
+  }
+
+  .github-chart-img-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Skills */
 .skills-container {
   display: flex;

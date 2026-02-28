@@ -139,59 +139,65 @@ document.addEventListener('DOMContentLoaded', () => {
   const fetchGitHubStats = async () => {
     const username = 'Visheshj111'; 
     const contributionsWrapper = document.querySelector('#github-contributions .counter');
-    const streakWrapper = document.querySelector('#github-streak .counter');
+    const reposWrapper = document.querySelector('#github-repos .counter');
 
-    if (!contributionsWrapper || !streakWrapper) return;
-    
-    try {
-      const year = new Date().getFullYear();
-      const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`);
-      if (!response.ok) throw new Error('Failed to fetch');
-      
-      const data = await response.json();
-      
-      let totalContributions = 0;
-      let highestStreak = 0;
-      let currentStreak = 0;
-      
-      if (data.contributions) {
-        data.contributions.forEach(day => {
-          totalContributions += day.count;
-          if (day.count > 0) {
-            currentStreak++;
-            if (currentStreak > highestStreak) {
-              highestStreak = currentStreak;
-            }
+    // Fetch public repos count from GitHub REST API (always available, no auth needed)
+    const fetchRepos = async () => {
+      try {
+        const res = await fetch(`https://api.github.com/users/${username}`);
+        if (!res.ok) throw new Error('GitHub user API failed');
+        const userData = await res.json();
+        const repoCount = userData.public_repos || 0;
+        if (reposWrapper) {
+          if (!reposWrapper.dataset.value) {
+            renderCounter(reposWrapper, repoCount);
           } else {
-            currentStreak = 0;
+            animateCounter(reposWrapper, repoCount);
           }
-        });
+        }
+      } catch (err) {
+        console.error('Error fetching repos:', err);
+        if (reposWrapper) {
+          if (!reposWrapper.dataset.value) {
+            renderCounter(reposWrapper, 15);
+          } else {
+            animateCounter(reposWrapper, 15);
+          }
+        }
       }
-      
-      if (!contributionsWrapper.dataset.value) {
-        renderCounter(contributionsWrapper, totalContributions || 0);
-      } else {
-        animateCounter(contributionsWrapper, totalContributions || 0);
-      }
+    };
 
-      if (!streakWrapper.dataset.value) {
-        renderCounter(streakWrapper, highestStreak || 0);
-      } else {
-        animateCounter(streakWrapper, highestStreak || 0);
+    // Fetch contributions from contributions API
+    const fetchContributions = async () => {
+      if (!contributionsWrapper) return;
+      try {
+        const year = new Date().getFullYear();
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`);
+        if (!response.ok) throw new Error('Failed to fetch');
+        const data = await response.json();
+        let totalContributions = 0;
+        if (data.contributions) {
+          data.contributions.forEach(day => {
+            totalContributions += day.count;
+          });
+        }
+        if (!contributionsWrapper.dataset.value) {
+          renderCounter(contributionsWrapper, totalContributions || 0);
+        } else {
+          animateCounter(contributionsWrapper, totalContributions || 0);
+        }
+      } catch (error) {
+        console.error('Error fetching contributions:', error);
+        if (!contributionsWrapper.dataset.value) {
+          renderCounter(contributionsWrapper, 360);
+        } else {
+          animateCounter(contributionsWrapper, 360);
+        }
       }
-    } catch (error) {
-      console.error('Error fetching GitHub stats:', error);
-      if (!contributionsWrapper.dataset.value) {
-        renderCounter(contributionsWrapper, 360);
-      } else {
-        animateCounter(contributionsWrapper, 360);
-      }
-      if (!streakWrapper.dataset.value) {
-        renderCounter(streakWrapper, 26);
-      } else {
-        animateCounter(streakWrapper, 26);
-      }
-    }
+    };
+
+    // Run both fetches in parallel
+    await Promise.all([fetchContributions(), fetchRepos()]);
   };
 
   // Call the function
@@ -363,21 +369,30 @@ function initViewCounter() {
   const viewCountEl = document.getElementById('view-count');
   if (!viewCountEl) return;
 
+  // Local storage fallback key
+  const LOCAL_VIEWS_KEY = 'portfolio-local-views';
+
+  // Increment local count on every new session
+  const hasVisited = sessionStorage.getItem('portfolio-visited');
+  if (!hasVisited) {
+    const localViews = parseInt(localStorage.getItem(LOCAL_VIEWS_KEY) || '0', 10) + 1;
+    localStorage.setItem(LOCAL_VIEWS_KEY, localViews);
+    sessionStorage.setItem('portfolio-visited', 'true');
+  }
+
   // Use globally initialized Firebase database
   const database = window.firebaseDB;
   if (!database) {
-    console.log('Firebase not available for view counter');
-    viewCountEl.textContent = '---';
+    console.log('Firebase not available, using local view count');
+    const localViews = parseInt(localStorage.getItem(LOCAL_VIEWS_KEY) || '0', 10);
+    viewCountEl.textContent = formatNumber(localViews);
     return;
   }
 
   const viewsRef = database.ref('portfolio/views');
 
-  // Check if this is a unique visitor (using sessionStorage to count once per session)
-  const hasVisited = sessionStorage.getItem('portfolio-visited');
-  
   if (!hasVisited) {
-    // Increment view count
+    // Increment Firebase view count
     viewsRef.transaction((currentViews) => {
       return (currentViews || 0) + 1;
     }).then(() => {
@@ -385,19 +400,20 @@ function initViewCounter() {
     }).catch((error) => {
       console.error('Failed to increment view count:', error);
     });
-    
-    // Mark as visited for this session
-    sessionStorage.setItem('portfolio-visited', 'true');
   }
 
-  // Listen for view count updates
+  // Listen for view count updates from Firebase
   viewsRef.on('value', (snapshot) => {
     const views = snapshot.val() || 0;
     viewCountEl.textContent = formatNumber(views);
+    // Sync local storage with Firebase value
+    localStorage.setItem(LOCAL_VIEWS_KEY, views);
     console.log('View count updated:', views);
   }, (error) => {
     console.error('Error reading view count:', error);
-    viewCountEl.textContent = '---';
+    // Fallback to local count
+    const localViews = parseInt(localStorage.getItem(LOCAL_VIEWS_KEY) || '0', 10);
+    viewCountEl.textContent = formatNumber(localViews);
   });
 }
 

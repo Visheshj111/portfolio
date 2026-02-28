@@ -209,10 +209,10 @@
             <div class="stat-big-label">Contributions</div>
           </div>
           <div class="stat-box">
-            <div class="stat-big-number" id="github-streak">
+            <div class="stat-big-number" id="github-repos">
               <div class="counter" data-value="0"></div>
             </div>
-            <div class="stat-big-label">Highest Streak</div>
+            <div class="stat-big-label">Projects</div>
           </div>
         </div>
       </div>
@@ -319,6 +319,10 @@
               <i data-lucide="atom"></i>
               <span>React</span>
             </div>
+            <div class="skill-pill" data-category="frontend">
+              <i data-lucide="triangle"></i>
+              <span>Next.js</span>
+            </div>
             <div class="skill-pill" data-category="database">
               <i data-lucide="database"></i>
               <span>MongoDB</span>
@@ -352,6 +356,34 @@
               <span>Godot</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- GitHub Contribution Chart -->
+      <div class="github-chart-card glass-card">
+        <div class="github-chart-header">
+          <div class="github-chart-title">
+            <i data-lucide="github"></i>
+            <h3>GitHub Contributions</h3>
+          </div>
+          <a href="https://github.com/Visheshj111" target="_blank" rel="noopener" class="github-chart-link">
+            <span>@Visheshj111</span>
+            <i data-lucide="external-link"></i>
+          </a>
+        </div>
+        <div class="github-chart-img-wrapper">
+          <img 
+            src="https://ghchart.rshah.org/40ffaa/Visheshj111" 
+            alt="Vishesh Jangid's GitHub Contribution Chart" 
+            class="github-chart-img github-chart-dark"
+            loading="lazy"
+          />
+          <img 
+            src="https://ghchart.rshah.org/1a1a24/Visheshj111" 
+            alt="Vishesh Jangid's GitHub Contribution Chart" 
+            class="github-chart-img github-chart-light"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
@@ -630,7 +662,7 @@
     </section>
   </main>
 
-  <!-- Game Modal -->
+  <!-- Game Controls Modal -->
   <div id="game-controls-modal" class="modal-overlay hidden">
     <div class="modal-content glass-card">
       <h2 class="modal-title">Game Controls</h2>
@@ -652,7 +684,30 @@
           <kbd>Space</kbd>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="startGame()">Start Game</button>
+      <button id="start-game-btn" class="btn btn-primary">Start Game</button>
+    </div>
+  </div>
+
+  <!-- Game Overlay -->
+  <div id="game-overlay" class="game-overlay hidden" style="display:none;">
+    <button id="close-game-btn" class="game-close" aria-label="Close game">
+      <i data-lucide="x"></i>
+    </button>
+    <div class="game-scores-container">
+      <div id="game-high-score" class="game-high-score">HIGH SCORE: 0</div>
+      <div id="game-score" class="game-score">SCORE: 0</div>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div id="game-message" class="game-message hidden">
+      <h2 id="game-over-text">GAME OVER</h2>
+      <p id="final-score-text">FINAL SCORE: 0</p>
+      <p style="margin-top:12px;color:#a8a8b3;">Press <kbd>R</kbd> to restart or <kbd>Esc</kbd> to exit</p>
+    </div>
+    <div id="mobile-game-controls" class="mobile-game-controls hidden">
+      <button class="game-control control-left" aria-label="Rotate Left"><i data-lucide="arrow-left"></i></button>
+      <button class="game-control control-thrust" aria-label="Thrust"><i data-lucide="arrow-up"></i></button>
+      <button class="game-control control-right" aria-label="Rotate Right"><i data-lucide="arrow-right"></i></button>
+      <button class="game-control control-shoot" aria-label="Shoot"><i data-lucide="crosshair"></i></button>
     </div>
   </div>
 
