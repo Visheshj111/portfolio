@@ -236,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bouncing Cards Animation - GSAP handles ALL positioning
   if (typeof gsap !== 'undefined') {
     const languageCards = document.querySelectorAll('.floating-card[data-language]');
+    const isMobileCards = window.innerWidth <= 1024;
     
     // Card configuration with EXACT positioning
     const cardStates = [
@@ -252,27 +253,42 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = '';
       
       const state = cardStates[index];
+
+      if (!isMobileCards) {
+        // Desktop: absolutely position cards via GSAP
+        gsap.set(card, {
+          position: 'absolute',
+          top: '70%',
+          left: '50%',
+          xPercent: -50,  // This replaces translate(-50%, -50%)
+          yPercent: -50,
+          x: state.x,     // Additional offset from center
+          y: state.y,     // Should be 0 for all cards
+          rotation: state.rotation,
+          scale: 0,
+          zIndex: 10,
+          transformOrigin: 'center center'
+        });
+      } else {
+        // Mobile: CSS flex handles position; GSAP only does scale
+        gsap.set(card, { scale: 0, transformOrigin: 'center center' });
+      }
       
-      // Set initial state with GSAP
-      gsap.set(card, {
-        position: 'absolute',
-        top: '70%',
-        left: '50%',
-        xPercent: -50,  // This replaces translate(-50%, -50%)
-        yPercent: -50,
-        x: state.x,     // Additional offset from center
-        y: state.y,     // Should be 0 for all cards
-        rotation: state.rotation,
-        scale: 0,
-        zIndex: 10,
-        transformOrigin: 'center center'
-      });
-      
-      // Animate in with elastic bounce
+      // Animate in with elastic bounce (both mobile & desktop)
       gsap.to(card, {
         scale: 1,
         ease: 'elastic.out(1, 0.8)',
-        delay: 0.5 + (index * 0.08)
+        delay: 0.5 + (index * 0.08),
+        onComplete: isMobileCards ? () => {
+          // Subtle staggered float on mobile
+          gsap.to(card, {
+            y: -6,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            duration: 1.5 + index * 0.25
+          });
+        } : undefined
       });
     });
 
@@ -332,11 +348,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    // Attach hover listeners
-    languageCards.forEach((card, index) => {
-      card.addEventListener('mouseenter', () => pushSiblings(index));
-      card.addEventListener('mouseleave', resetSiblings);
-    });
+    // Attach hover listeners (desktop only)
+    if (!isMobileCards) {
+      languageCards.forEach((card, index) => {
+        card.addEventListener('mouseenter', () => pushSiblings(index));
+        card.addEventListener('mouseleave', resetSiblings);
+      });
+    }
 
     // Animate GitHub stats card
     const statsCard = document.querySelector('.github-stats-card');

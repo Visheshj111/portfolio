@@ -248,10 +248,10 @@
       </div>
 
       <div class="about-grid">
-        <div class="about-content glass-card">
+        <div class="about-content glass-card glare-hover-card">
           <div class="about-text">
             <p class="text-large">
-              Hello! I'm Vishesh, a self-taught developer who loves bringing ideas to life through code.
+              Hello! I'm Vishesh, a developer who loves bringing ideas to life through code.
             </p>
             <p>
               My journey started with a fascination for video games, which evolved into a broader 
@@ -373,7 +373,7 @@
         </div>
         <div class="github-chart-img-wrapper">
           <img 
-            src="https://ghchart.rshah.org/40ffaa/Visheshj111" 
+            src="https://ghchart.rshah.org/2d2d2d/Visheshj111" 
             alt="Vishesh Jangid's GitHub Contribution Chart" 
             class="github-chart-img github-chart-dark"
             loading="lazy"
@@ -557,7 +557,92 @@
                 </div>
               </div>
 
-              <a href="https://github.com/Visheshj111/portfolio" target="_blank" rel="noopener" class="btn btn-primary project-modal-btn">
+              <a href="https://github.com/Visheshj111/Persisto" target="_blank" rel="noopener" class="btn btn-primary project-modal-btn">
+                <i data-lucide="github" class="btn-icon"></i>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Olivier — Desktop Lead Manager -->
+        <div class="project-card-container">
+          <a href="https://github.com/Visheshj111/OlivierApp" target="_blank" rel="noopener" class="project-card-link">
+            <div class="project-card" data-project="olivier">
+              <figure class="tilted-card-figure">
+                <div class="tilted-card-inner glass-card">
+                  <img src="https://placehold.co/500x280/1e293b/94a3b8?text=Olivier" alt="Olivier - Desktop Lead Manager" class="tilted-card-img" />
+                  <div class="project-card-footer">
+                    <div class="project-card-info">
+                      <h3 class="project-card-title">Olivier — Desktop Lead Manager</h3>
+                      <div class="project-mini-tags">
+                        <span>Electron</span>
+                        <span>React</span>
+                        <span>Vite</span>
+                      </div>
+                    </div>
+                    <button class="expand-btn" aria-label="View details" data-expand="olivier">
+                      <i data-lucide="maximize-2"></i>
+                    </button>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </a>
+
+          <!-- Expanded Project Info Modal -->
+          <div class="project-modal" id="modal-olivier">
+            <div class="project-modal-content glass-card">
+              <button class="modal-close-btn" aria-label="Close">
+                <i data-lucide="x"></i>
+              </button>
+              <div class="project-modal-header">
+                <div class="project-tags">
+                  <span class="project-tag">Electron</span>
+                  <span class="project-tag">React</span>
+                  <span class="project-tag">Vite</span>
+                  <span class="project-tag">electron-builder</span>
+                  <span class="project-tag">Auto-Updates</span>
+                </div>
+                <h3 class="project-modal-title">Olivier — Desktop Lead Manager</h3>
+              </div>
+
+              <p class="project-modal-description">
+                A lightweight desktop app for managing leads and follow-ups, built for sales
+                professionals who want to stay on top of their pipeline without the bloat of a full CRM.
+                Features lead management with timelines, a dashboard with analytics, native Windows
+                deadline notifications, system tray support, and seamless auto-updates via GitHub
+                Releases — all stored locally with zero cloud dependency.
+              </p>
+
+              <div class="project-highlights">
+                <div class="highlight-chip">
+                  <i data-lucide="users"></i>
+                  <span>Lead Management</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="bell"></i>
+                  <span>Desktop Notifications</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="bar-chart-2"></i>
+                  <span>Dashboard Analytics</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="refresh-cw"></i>
+                  <span>Auto-Updates</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="shield"></i>
+                  <span>Offline &amp; Private</span>
+                </div>
+                <div class="highlight-chip">
+                  <i data-lucide="monitor"></i>
+                  <span>System Tray</span>
+                </div>
+              </div>
+
+              <a href="https://github.com/Visheshj111/OlivierApp" target="_blank" rel="noopener" class="btn btn-primary project-modal-btn">
                 <i data-lucide="github" class="btn-icon"></i>
                 <span>View on GitHub</span>
               </a>
@@ -575,7 +660,7 @@
       </div>
 
       <div class="experience-grid">
-        <div class="experience-card glass-card">
+        <div class="experience-card glass-card glare-hover-card">
           <div class="experience-icon">
             <i data-lucide="briefcase"></i>
           </div>
@@ -596,7 +681,7 @@
           </div>
         </div>
 
-        <div class="interests-card glass-card">
+        <div class="interests-card glass-card glare-hover-card">
           <h3 class="interests-title">
             <i data-lucide="heart"></i>
             Interests & Hobbies
@@ -630,7 +715,7 @@
 
     <!-- Contact Section -->
     <section id="contact" class="section-container" aria-label="Contact">
-      <div class="contact-container glass-card">
+      <div class="contact-container glass-card glare-hover-card">
         <div class="contact-content">
           <h2 class="contact-title">Let's Build Something Together</h2>
           <p class="contact-description">
@@ -723,7 +808,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
-    <script src="scripts/target-cursor.js"></script>
+    <script src="scripts/cursor.js"></script>
     <script src="scripts/decrypt-text.js"></script>
     <script src="scripts/pill-nav.js"></script>
     <script src="scripts/tilted-card.js"></script>

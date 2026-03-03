@@ -617,6 +617,15 @@
     }
     
     setupTouchControls();
+
+    // ESC to close controls modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && state.dom.gameControlsModal &&
+          !state.dom.gameControlsModal.classList.contains('hidden')) {
+        state.dom.gameControlsModal.classList.add('hidden');
+        state.dom.gameControlsModal.style.display = 'none';
+      }
+    });
     
     // Fetch global high score from Firebase
     fetchGlobalHighScore();
