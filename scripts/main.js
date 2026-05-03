@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!contributionsWrapper) return;
       try {
         const year = new Date().getFullYear();
-        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${year}`);
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
         if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         let totalContributions = 0;
@@ -443,3 +443,28 @@ function formatNumber(num) {
   }
   return num.toString();
 }
+
+// Experience Modals Logic
+window.openExpModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+};
+
+window.closeExpModal = function(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+};
+
+// Close modal when clicking outside of it
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('exp-modal-overlay')) {
+    event.target.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
