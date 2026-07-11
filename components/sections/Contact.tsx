@@ -3,25 +3,20 @@
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
+import AnimatedContent from "@/components/AnimatedContent";
 import Link from "next/link";
 
 const socialLinks = [
-  { name: "Email", href: "mailto:visheshjangid@example.com", icon: Mail },
+  { name: "Email", href: "mailto:jangid.vishesh.111@gmail.com", icon: Mail },
   { name: "GitHub", href: "https://github.com/Visheshj111", icon: GithubIcon },
   { name: "LinkedIn", href: "https://linkedin.com/in/vishesh-jangid", icon: LinkedinIcon },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-32 px-6 max-w-7xl mx-auto w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col items-center text-center gap-10"
-      >
-        <div className="flex flex-col items-center gap-4">
+    <section id="contact" className="relative py-24 px-6 max-w-4xl mx-auto w-full text-center">
+      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
+        <div className="flex flex-col items-center gap-8">
           <h2 className="text-[10vw] md:text-8xl leading-none font-bold tracking-tighter uppercase">
             Let's <br className="md:hidden" /> Connect
           </h2>
@@ -54,7 +49,7 @@ export default function Contact() {
             );
           })}
         </div>
-      </motion.div>
+      </AnimatedContent>
     </section>
   );
 }

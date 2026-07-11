@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import React, { useRef } from "react";
 import Link from "next/link";
+import AnimatedContent from "@/components/AnimatedContent";
 
 function TiltMedia({ videoSrc, imageSrc }: { videoSrc?: string; imageSrc: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -74,15 +75,15 @@ function TiltMedia({ videoSrc, imageSrc }: { videoSrc?: string; imageSrc: string
 }
 
 export default function FeaturedProjects() {
+  const { scrollYProgress } = useScroll({
+    offset: ["start end", "end start"]
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1.05, 0.95]);
+
   return (
     <section id="projects" className="relative py-24 px-6 max-w-7xl mx-auto w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col gap-16"
-      >
+      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
+        <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-2">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Featured Work</h2>
           <p className="text-foreground/60 text-lg">Selected projects that showcase my expertise.</p>
@@ -92,12 +93,12 @@ export default function FeaturedProjects() {
         <div className="flex flex-col xl:flex-row gap-12 items-center">
           
           {/* Media Showcase (Video/Image) */}
-          <div className="w-full xl:w-3/5 perspective-1000">
+          <motion.div style={{ scale }} className="w-full xl:w-3/5 perspective-1000">
             <TiltMedia 
               videoSrc="/playnear/hero.mp4" 
               imageSrc="/playnear/screenshot-1.png" 
             />
-          </div>
+          </motion.div>
 
           {/* Project Details */}
           <div className="w-full xl:w-2/5 flex flex-col gap-6">
@@ -142,8 +143,8 @@ export default function FeaturedProjects() {
 
           </div>
         </div>
-
-      </motion.div>
+        </div>
+      </AnimatedContent>
     </section>
   );
 }

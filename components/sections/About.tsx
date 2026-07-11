@@ -1,18 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedContent from "@/components/AnimatedContent";
 
 export default function About() {
   return (
     <section id="about" className="relative py-24 px-6 max-w-7xl mx-auto w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col gap-8"
-      >
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">About</h2>
+      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
+        <div className="flex flex-col gap-8">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">About</h2>
         
         <div className="max-w-3xl text-foreground/80 text-lg md:text-xl leading-relaxed space-y-6 font-medium">
           <p>
@@ -28,7 +24,8 @@ export default function About() {
             actively coordinating campus recruitment and bridging the gap between talent and opportunity.
           </p>
         </div>
-      </motion.div>
+        </div>
+      </AnimatedContent>
     </section>
   );
 }

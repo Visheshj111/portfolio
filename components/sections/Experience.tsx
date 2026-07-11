@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedContent from "@/components/AnimatedContent";
 
 const experiences = [
   {
@@ -18,14 +19,9 @@ const experiences = [
 export default function Experience() {
   return (
     <section id="experience" className="relative py-24 px-6 max-w-7xl mx-auto w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col gap-12"
-      >
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Experience</h2>
+      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
+        <div className="flex flex-col gap-12">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Experience</h2>
 
         <div className="relative border-l border-foreground/10 ml-3 md:ml-4 flex flex-col gap-12">
           {experiences.map((exp, index) => (
@@ -48,7 +44,8 @@ export default function Experience() {
             </motion.div>
           ))}
         </div>
-      </motion.div>
+        </div>
+      </AnimatedContent>
     </section>
   );
 }
