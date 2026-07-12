@@ -1,4 +1,4 @@
-import Navbar from "@/components/ui/Navbar";
+import StaggeredMenu from "@/components/StaggeredMenu";
 import Hero from "@/components/sections/Hero";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import ProjectsGrid from "@/components/sections/ProjectsGrid";
@@ -19,7 +19,23 @@ export default function Home() {
         </svg>
       </div>
       <main className="min-h-screen flex flex-col relative overflow-x-hidden">
-      <Navbar />
+        <StaggeredMenu 
+          isFixed={true} 
+          position="right"
+          logoUrl=""
+          openMenuButtonColor="#000"
+          items={[
+            { label: "About", ariaLabel: "About", link: "#about" },
+            { label: "Experience", ariaLabel: "Experience", link: "#experience" },
+            { label: "Work", ariaLabel: "Work", link: "#projects" },
+            { label: "Contact", ariaLabel: "Contact", link: "#contact" },
+          ]}
+          socialItems={[
+            { label: "GitHub", link: "https://github.com/Visheshj111" },
+            { label: "LinkedIn", link: "https://linkedin.com/in/vishesh-jangid" },
+            { label: "Instagram", link: "https://www.instagram.com/visheshh.j/" }
+          ]}
+        />
       <Hero />
       <Marquee />
       <About />

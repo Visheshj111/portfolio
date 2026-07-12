@@ -23,27 +23,27 @@ export default function Experience() {
         <div className="flex flex-col gap-12">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Experience</h2>
 
-        <div className="relative border-l border-foreground/10 ml-3 md:ml-4 flex flex-col gap-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="relative pl-8 md:pl-10"
-            >
-              {/* Timeline dot */}
-              <div className="absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-accent ring-4 ring-background" />
+          <div className="relative border-l border-foreground/10 ml-3 md:ml-4 flex flex-col gap-12">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative pl-8 md:pl-10"
+              >
+                {/* Timeline dot */}
+                <div className="absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-accent ring-4 ring-background" />
 
-              <div className="flex flex-col gap-1">
-                <span className="text-sm font-mono text-accent">{exp.date}</span>
-                <h3 className="text-2xl font-bold tracking-tight">{exp.role}</h3>
-                <p className="text-foreground/70 text-lg">{exp.company}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm font-mono text-accent">{exp.date}</span>
+                  <h3 className="text-2xl font-bold tracking-tight">{exp.role}</h3>
+                  <p className="text-foreground/70 text-lg">{exp.company}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </AnimatedContent>
     </section>

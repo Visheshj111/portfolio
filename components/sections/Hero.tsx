@@ -6,6 +6,7 @@ import Link from "next/link";
 import Aurora from "@/components/Aurora";
 import BlurText from "@/components/BlurText";
 import Magnetic from "@/components/ui/Magnetic";
+import ReflectiveCard from "@/components/ReflectiveCard";
 
 export default function Hero() {
   const container: Variants = {
@@ -27,9 +28,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 pt-20 overflow-hidden">
       {/* ReactBits Aurora animated background */}
-      <div className="absolute inset-0 -z-20 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 -z-20 pointer-events-none">
         <Aurora 
-          colorStops={["#1e1b4b", "#4c1d95", "#0f172a"]} 
           speed={0.5} 
           amplitude={1.5} 
         />
@@ -39,9 +39,9 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-7xl mx-auto w-full flex flex-col gap-8"
+        className="max-w-7xl mx-auto w-full flex flex-col gap-8 relative z-10"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:w-2/3">
           <motion.p variants={item} className="text-accent font-mono text-sm md:text-base mb-4 tracking-tight">
             Hello, I am Vishesh Jangid
           </motion.p>
@@ -60,7 +60,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <motion.div variants={item} className="flex flex-col md:flex-row items-start md:items-center gap-6 mt-8">
+        <motion.div variants={item} className="flex flex-col md:flex-row items-start md:items-center gap-6 mt-8 lg:w-2/3">
           <p className="text-foreground/70 text-lg md:text-xl max-w-md leading-relaxed font-medium">
             BCA student, Pune — building production web apps.
           </p>
@@ -87,6 +87,14 @@ export default function Hero() {
               </Link>
             </Magnetic>
           </div>
+        </motion.div>
+
+        {/* Floating Reflective Card Accent */}
+        <motion.div 
+          variants={item}
+          className="hidden lg:block absolute right-0 xl:right-8 top-1/2 -translate-y-1/2 rotate-6 hover:rotate-0 hover:scale-105 transition-all duration-500 z-20 pointer-events-auto"
+        >
+          <ReflectiveCard mediaSrc="/hero-card-loop.mp4" />
         </motion.div>
       </motion.div>
       

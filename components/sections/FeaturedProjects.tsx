@@ -5,7 +5,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import React, { useRef } from "react";
 import Link from "next/link";
 import AnimatedContent from "@/components/AnimatedContent";
-
+import Stack from "@/components/Stack";
 function TiltMedia({ videoSrc, imageSrc }: { videoSrc?: string; imageSrc: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -111,11 +111,17 @@ export default function FeaturedProjects() {
               </span>
             </div>
 
-            <p className="text-foreground/80 leading-relaxed">
-              Built during my internship at Codemetron, this was a full-stack geolocation platform 
-              connecting users with local sports academies. While no longer live, it onboarded 20+ 
-              sports academies into production.
-            </p>
+            <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+              <p className="text-foreground/80 leading-relaxed flex-1">
+                Built during my internship at Codemetron, this was a full-stack geolocation platform 
+                connecting users with local sports academies. While no longer live, it onboarded 20+ 
+                sports academies into production.
+              </p>
+
+              <div className="w-[280px] h-[280px] shrink-0 z-10 cursor-pointer">
+                <Stack randomRotation={true} sendToBackOnClick={true} />
+              </div>
+            </div>
 
             <ul className="space-y-3 text-sm text-foreground/80">
               <li className="flex gap-3">
