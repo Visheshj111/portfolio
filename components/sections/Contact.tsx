@@ -48,7 +48,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 px-6 max-w-4xl mx-auto w-full text-center">
+    <section id="contact" className="relative py-24 px-6 md:px-12 lg:px-16 mx-auto w-full text-center">
       <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
         <div className="flex flex-col items-center gap-8 mb-16">
           <h2 className="text-[10vw] md:text-8xl leading-none font-bold tracking-tighter uppercase">

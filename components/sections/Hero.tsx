@@ -39,7 +39,7 @@ export default function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-7xl mx-auto w-full flex flex-col gap-8 relative z-10"
+        className="px-6 md:px-12 lg:px-16 mx-auto w-full flex flex-col gap-8 relative z-10"
       >
         <div className="flex flex-col lg:w-2/3">
           <motion.p variants={item} className="text-accent font-mono text-sm md:text-base mb-4 tracking-tight">

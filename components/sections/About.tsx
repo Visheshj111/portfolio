@@ -5,7 +5,7 @@ import AnimatedContent from "@/components/AnimatedContent";
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 px-6 max-w-7xl mx-auto w-full">
+    <section id="about" className="relative py-24 px-6 md:px-12 lg:px-16 mx-auto w-full">
       <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
         <div className="flex flex-col gap-8">
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">About</h2>

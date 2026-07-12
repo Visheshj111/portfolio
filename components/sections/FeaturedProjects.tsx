@@ -80,7 +80,7 @@ export default function FeaturedProjects() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1.05, 0.95]);
 
   return (
-    <section id="projects" className="relative py-24 px-6 max-w-7xl mx-auto w-full">
+    <section id="projects" className="relative py-24 px-6 md:px-12 lg:px-16 mx-auto w-full">
       <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
         <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-2">
