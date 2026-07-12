@@ -54,11 +54,10 @@ function TiltMedia({ videoSrc, imageSrc }: { videoSrc?: string; imageSrc: string
             muted
             loop
             playsInline
+            src={videoSrc}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             poster={imageSrc}
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
+          />
         ) : (
           <img
             src={imageSrc}

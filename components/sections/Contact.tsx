@@ -7,7 +7,7 @@ import AnimatedContent from "@/components/AnimatedContent";
 import Link from "next/link";
 
 const socialLinks = [
-  { name: "Email", href: "mailto:jangid.vishesh.111@gmail.com", icon: Mail },
+  { name: "Email", href: "mailto:vishesh.domain@gmail.com", icon: Mail },
   { name: "GitHub", href: "https://github.com/Visheshj111", icon: GithubIcon },
   { name: "LinkedIn", href: "https://linkedin.com/in/vishesh-jangid", icon: LinkedinIcon },
 ];
@@ -21,7 +21,7 @@ export default function Contact() {
             Let's <br className="md:hidden" /> Connect
           </h2>
           <p className="text-foreground/60 text-lg md:text-xl font-medium max-w-md">
-            I'm currently looking for new opportunities. My inbox is always open.
+            I'm currently looking for new opportunities. My inbox is always open at vishesh.domain@gmail.com.
           </p>
         </div>
 
