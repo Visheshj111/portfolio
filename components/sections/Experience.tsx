@@ -1,51 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { ArrowUpRight, BriefcaseBusiness, Pause, Play } from "lucide-react";
 import AnimatedContent from "@/components/AnimatedContent";
 
-const experiences = [
-  {
-    role: "Full Stack Developer Intern",
-    company: "Codemetron",
-    date: "Feb 2026 – Present",
-  },
-  {
-    role: "Placement Executive",
-    company: "Indira Group of Institutes",
-    date: "Feb 2025 – Present",
-  },
-];
-
 export default function Experience() {
-  return (
-    <section id="experience" className="relative py-24 px-6 md:px-12 lg:px-16 mx-auto w-full">
-      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
-        <div className="flex flex-col gap-12">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Experience</h2>
-
-          <div className="relative border-l border-foreground/10 ml-3 md:ml-4 flex flex-col gap-12">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative pl-8 md:pl-10"
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-accent ring-4 ring-background" />
-
-                <div className="flex flex-col gap-1">
-                  <span className="text-sm font-mono text-accent">{exp.date}</span>
-                  <h3 className="text-2xl font-bold tracking-tight">{exp.role}</h3>
-                  <p className="text-foreground/70 text-lg">{exp.company}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </AnimatedContent>
-    </section>
-  );
+  const video = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  async function toggleVideo() {
+    if (!video.current) return;
+    if (playing) { video.current.pause(); setPlaying(false); }
+    else { try { await video.current.play(); setPlaying(true); } catch { setPlaying(false); } }
+  }
+  return <section id="experience" className="section experience-section"><div className="page-width"><AnimatedContent distance={35} duration={.65} animateOpacity={false}><div className="section-heading"><span className="eyebrow">02 / Beyond personal projects</span><span className="section-kicker">Learning with real responsibilities.</span></div><div className="experience-intro"><h2 className="section-title">Work, with people<br />on the other side<span>.</span></h2><p className="muted-copy">Professional experience has taught me to care about the handoff, the people using the product, and what happens after it ships.</p></div><div className="experience-list"><article><div className="experience-date">FEB 2026 — PRESENT</div><div><h3>Full Stack Developer Intern <BriefcaseBusiness size={17} /></h3><p>Codemetron</p><p className="experience-description">Building and improving web applications across frontend and backend workflows.</p></div><span className="experience-type">Engineering</span></article><article><div className="experience-date">FEB 2025 — PRESENT</div><div><h3>Placement Executive <ArrowUpRight size={17} /></h3><p>Indira Group of Institutes</p><p className="experience-description">Coordinating campus recruitment and helping students and recruiting teams connect.</p></div><span className="experience-type">People & coordination</span></article></div><div className="company-feature"><div className="company-media"><video ref={video} src="/playnear/hero.mp4" poster="/playnear/screenshot-1.png" muted playsInline loop preload="none" onPause={() => setPlaying(false)} aria-label="PlayNear product walkthrough" /><button onClick={toggleVideo} aria-label={playing ? "Pause PlayNear walkthrough" : "Play PlayNear walkthrough"}>{playing ? <Pause size={18} /> : <Play size={18} />}<span>{playing ? "Pause walkthrough" : "Play walkthrough"}</span></button></div><div className="company-description"><span className="eyebrow">An internship build / Company work</span><h3>PlayNear<span>↗</span></h3><p>A sports-academy discovery platform built at Codemetron, with geolocation, academy dashboards, and an image-storage pipeline.</p><div className="tech-tags"><span>Next.js</span><span>PostgreSQL</span><span>Prisma</span><span>MinIO</span></div><p className="company-note">Archived project. Original walkthrough retained; the product is no longer live.</p><a href="/playnear/screenshot-1.png" target="_blank" rel="noreferrer" className="text-link">Open product screenshot <ArrowUpRight size={14} /></a></div></div></AnimatedContent></div></section>;
 }

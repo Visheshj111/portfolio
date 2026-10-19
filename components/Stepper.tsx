@@ -308,8 +308,8 @@ interface StepConnectorProps {
 
 function StepConnector({ isComplete }: StepConnectorProps) {
     const lineVariants: Variants = {
-        incomplete: { width: 0, backgroundColor: 'transparent' },
-        complete: { width: '100%', backgroundColor: '#5227FF' }
+        incomplete: { width: 0, backgroundColor: 'rgba(197, 230, 160, 0)' },
+        complete: { width: '100%', backgroundColor: 'rgba(197, 230, 160, 1)' }
     };
 
     return (
@@ -325,7 +325,7 @@ function StepConnector({ isComplete }: StepConnectorProps) {
     );
 }
 
-interface CheckIconProps extends React.SVGProps<SVGSVGElement> { }
+type CheckIconProps = React.SVGProps<SVGSVGElement>;
 
 function CheckIcon(props: CheckIconProps) {
     return (

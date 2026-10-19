@@ -116,28 +116,31 @@ interface AuroraProps {
 }
 
 export default function Aurora(props: AuroraProps) {
-  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = props;
+
   const propsRef = useRef<AuroraProps>(props);
-  propsRef.current = props;
+  useEffect(() => { propsRef.current = props; });
 
   const ctnDom = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = propsRef.current;
     const ctn = ctnDom.current;
     if (!ctn) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const renderer = new Renderer({
+    let renderer: Renderer;
+    try { renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
       antialias: true
-    });
+    }); } catch { return; }
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
 
-    let program: Program | undefined;
+
 
     function resize() {
       if (!ctn) return;
@@ -148,7 +151,8 @@ export default function Aurora(props: AuroraProps) {
         program.uniforms.uResolution.value = [width, height];
       }
     }
-    window.addEventListener('resize', resize);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(ctn);
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
@@ -160,7 +164,7 @@ export default function Aurora(props: AuroraProps) {
       return [c.r, c.g, c.b];
     });
 
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
@@ -176,8 +180,12 @@ export default function Aurora(props: AuroraProps) {
     ctn.appendChild(gl.canvas);
 
     let animateId = 0;
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
+    observer.observe(ctn);
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
+      if (!visible || document.hidden) return;
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
       if (program) {
         program.uniforms.uTime.value = time * speed * 0.1;
@@ -196,14 +204,15 @@ export default function Aurora(props: AuroraProps) {
     resize();
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(animateId);
-      window.removeEventListener('resize', resize);
+      resizeObserver.disconnect();
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude]);
+  }, []);
 
   return <div ref={ctnDom} className="w-full h-full" />;
 }

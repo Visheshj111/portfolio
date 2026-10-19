@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { profile } from "@/lib/portfolio";
+
+export const metadata = { title: "Contact & privacy", alternates: { canonical: "/privacy" } };
+export default function Privacy() {
+  return <main className="privacy-page page-width"><Link href="/" className="text-link">← Back to the portfolio</Link><h1>A note on privacy<span>.</span></h1><h2>The contact form</h2><p>Submitting the form sends your name, email address, and message to FormSubmit so it can deliver the message to my inbox. Don’t include passwords or other confidential information. See <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noreferrer">FormSubmit’s privacy policy</a> for how that service handles submissions.</p><p>You can also contact me directly at <a href={`mailto:${profile.email}`}>{profile.email}</a>. The form only reports success after the delivery service accepts the request; it cannot confirm that an email has reached my inbox.</p><h2>The interactive demo</h2><p>The rate-limiter playground runs locally in your browser. Its request counter is an illustration of the algorithms, not traffic sent to a live QueueShield API. It resets when the page reloads.</p><h2>External links</h2><p>Project repositories, the Chrome Web Store, LinkedIn, and release pages are separate websites with their own policies. This portfolio does not require an account or install analytics scripts.</p></main>;
+}

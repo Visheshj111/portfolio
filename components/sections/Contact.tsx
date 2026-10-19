@@ -1,192 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, CheckCircle2 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/icons";
-import AnimatedContent from "@/components/AnimatedContent";
-import Link from "next/link";
-import Stepper, { Step } from "@/components/Stepper";
 import { useState } from "react";
-
-const socialLinks = [
-  { name: "Email", href: "mailto:vishesh.domain@gmail.com", icon: Mail },
-  { name: "GitHub", href: "https://github.com/Visheshj111", icon: GithubIcon },
-  { name: "LinkedIn", href: "https://linkedin.com/in/vishesh-jangid", icon: LinkedinIcon },
-];
+import { ArrowRight, ArrowUpRight, Check, CheckCircle2, Copy, LoaderCircle } from "lucide-react";
+import AnimatedContent from "@/components/AnimatedContent";
+import Stepper, { Step } from "@/components/Stepper";
+import { profile } from "@/lib/portfolio";
 
 export default function Contact() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [name, setName] = useState("");
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  const handleComplete = async () => {
-    setIsSending(true);
+  const [website, setWebsite] = useState("");
+  const [step, setStep] = useState(1);
+  const [attempt, setAttempt] = useState(0);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+  const detailsValid = name.trim().length >= 2 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const messageValid = message.trim().length >= 10;
+  async function submit() {
+    if (!detailsValid || !messageValid || status === "sending") return;
+    setError(""); setStatus("sending");
     try {
-      await fetch("https://formsubmit.co/ajax/vishesh.domain@gmail.com", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name || "Anonymous",
-          email: email || "No Email provided",
-          message: message || "No Message provided"
-        })
-      });
-      setIsSent(true);
+      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, message, website }), signal: AbortSignal.timeout(20000) });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || "The message service could not accept your message.");
+      setStatus("sent");
     } catch (error) {
-      console.error(error);
-      // Fallback
-      window.location.href = `mailto:vishesh.domain@gmail.com?subject=Portfolio Contact from ${name}&body=${message}%0A%0AFrom: ${email}`;
-      setIsSent(true);
-    } finally {
-      setIsSending(false);
+      setError(error instanceof Error ? error.message : "Couldn’t send your message. You can email me directly instead.");
+      setStep(3); setAttempt(value => value + 1); setStatus("idle");
     }
-  };
-
-  return (
-    <section id="contact" className="relative py-24 px-6 md:px-12 lg:px-16 mx-auto w-full text-center">
-      <AnimatedContent distance={100} direction="vertical" reverse={false} duration={0.8} ease="power3.out">
-        <div className="flex flex-col items-center gap-8 mb-16">
-          <h2 className="text-[10vw] md:text-8xl leading-none font-bold tracking-tighter uppercase">
-            Let's <br className="md:hidden" /> Connect
-          </h2>
-          <p className="text-foreground/60 text-lg md:text-xl font-medium max-w-md">
-            I'm currently looking for new opportunities. Send me a message directly or connect via socials.
-          </p>
-        </div>
-
-        {isSent ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center p-12 bg-foreground/5 rounded-[2rem] border border-foreground/10 mx-auto max-w-xl"
-          >
-            <CheckCircle2 className="w-16 h-16 text-accent mb-6" />
-            <h3 className="text-3xl font-bold mb-2">Message Sent!</h3>
-            <p className="text-foreground/60">Thanks for reaching out, {name}. I'll get back to you soon.</p>
-          </motion.div>
-        ) : (
-          <div className="w-full max-w-xl mx-auto text-left">
-            <Stepper
-              initialStep={1}
-              onFinalStepCompleted={handleComplete}
-              backButtonText="Back"
-              nextButtonText="Next"
-              completeButtonText={isSending ? "Sending..." : "Send"}
-              stepCircleContainerClassName="bg-background border-foreground/10"
-            >
-              {/* Step 1 */}
-              <Step>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <h3 className="text-2xl font-bold tracking-tight">Your Email</h3>
-                    <p className="text-foreground/60 text-sm mt-1">So I can get back to you.</p>
-                  </div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="hello@example.com"
-                    className="w-full p-4 bg-foreground/5 border border-foreground/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent transition-all text-foreground"
-                  />
-                </div>
-              </Step>
-
-              {/* Step 2 */}
-              <Step>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <h3 className="text-2xl font-bold tracking-tight">Your Message</h3>
-                    <p className="text-foreground/60 text-sm mt-1">What's on your mind?</p>
-                  </div>
-                  {/* The Cat Image Banner */}
-                  <img
-                    src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80"
-                    alt="Cute Cat Banner"
-                    className="w-full h-28 md:h-36 rounded-xl object-cover border border-foreground/10 shadow-sm my-1"
-                  />
-                  <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Hi Vishesh, I'd like to talk about..."
-                    rows={4}
-                    className="w-full p-4 bg-foreground/5 border border-foreground/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent transition-all text-foreground resize-none"
-                  />
-                </div>
-              </Step>
-
-              {/* Step 3 */}
-              <Step>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <h3 className="text-2xl font-bold tracking-tight">Your Name</h3>
-                    <p className="text-foreground/60 text-sm mt-1">Who am I speaking with?</p>
-                  </div>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Ben Tennyson"
-                    className="w-full p-4 bg-foreground/5 border border-foreground/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent transition-all text-foreground"
-                  />
-                </div>
-              </Step>
-
-              {/* Step 4 */}
-              <Step>
-                <div className="flex flex-col gap-4">
-                  <h3 className="text-2xl font-bold tracking-tight">Overview</h3>
-                  <div className="p-5 bg-foreground/5 rounded-xl border border-foreground/10 space-y-4">
-                    <div>
-                      <span className="text-foreground/50 uppercase tracking-wider text-[10px] font-bold">Name</span>
-                      <p className="font-medium text-lg leading-tight mt-1">{name || "—"}</p>
-                    </div>
-                    <div className="h-[1px] w-full bg-foreground/10" />
-                    <div>
-                      <span className="text-foreground/50 uppercase tracking-wider text-[10px] font-bold">Email</span>
-                      <p className="font-medium text-lg leading-tight mt-1">{email || "—"}</p>
-                    </div>
-                    <div className="h-[1px] w-full bg-foreground/10" />
-                    <div>
-                      <span className="text-foreground/50 uppercase tracking-wider text-[10px] font-bold">Message</span>
-                      <p className="font-medium text-base leading-relaxed mt-1 whitespace-pre-wrap">{message || "—"}</p>
-                    </div>
-                  </div>
-                </div>
-              </Step>
-            </Stepper>
-          </div>
-        )}
-
-        <div className="flex items-center justify-center gap-6 mt-16">
-          {socialLinks.map((link, index) => {
-            const Icon = link.icon;
-            return (
-              <motion.div
-                key={link.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
-              >
-                <Link
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex p-4 rounded-full bg-foreground/5 hover:bg-foreground hover:text-background border border-foreground/10 transition-all duration-300 hover:scale-110"
-                  aria-label={link.name}
-                >
-                  <Icon className="w-8 h-8" />
-                </Link>
-              </motion.div>
-            );
-          })}
-        </div>
-      </AnimatedContent>
-    </section>
-  );
+  }
+  async function copyEmail() {
+    try { await navigator.clipboard.writeText(profile.email); setCopied(true); setTimeout(() => setCopied(false), 2000); }
+    catch { setError("Clipboard access is unavailable. You can select the email address or open the email link."); }
+  }
+  function startAgain() { setStatus("idle"); setName(""); setEmail(""); setMessage(""); setStep(1); setError(""); setAttempt(value => value + 1); }
+  return <section id="contact" className="section page-width contact-section"><AnimatedContent distance={35} duration={.65} animateOpacity={false}><div className="contact-grid"><div><span className="eyebrow">04 / The next conversation</span><h2 className="contact-title">Have something<br />in mind<span>?</span></h2><p className="contact-intro">A role, a project, or a good engineering problem. I’m open to conversations about what we could build together.</p><div className="email-row"><a href={`mailto:${profile.email}`}>{profile.email}</a><button onClick={copyEmail} aria-label={copied ? "Email copied" : "Copy email address"}>{copied ? <Check size={15} /> : <Copy size={15} />}</button></div><div className="contact-socials"><a href={profile.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13} /></a><a href="/resume.pdf" target="_blank" rel="noreferrer">Résumé <ArrowUpRight size={13} /></a></div><p className="contact-location">PUNE, INDIA / OPEN TO OPPORTUNITIES</p></div><div>
+    {error && <p role="alert" className="contact-error">{error}</p>}
+    {status === "sending" ? <div className="contact-state" role="status"><LoaderCircle size={27} className="animate-spin" /><h3>Sending your message.</h3><p>Waiting for the message service to accept it.</p></div> : status === "sent" ? <div className="contact-state" role="status"><CheckCircle2 size={29} /><h3>Thanks for saying hello.</h3><p>The message service accepted your note, {name.trim()}. I look forward to reading it.</p><button className="text-link" onClick={startAgain}>Start another conversation <ArrowRight size={15} /></button></div> : <div role="form" aria-label="Contact Vishesh"><Stepper key={attempt} initialStep={step} onStepChange={setStep} onFinalStepCompleted={submit} className="contact-stepper" nextButtonText="Continue" completeButtonText="Send message" backButtonText="Back" nextButtonProps={{ type: "button", className: "button button-accent", disabled: step === 1 ? !detailsValid : !messageValid }} backButtonProps={{ type: "button", className: "text-link" }} renderStepIndicator={({ step: number, currentStep }) => <span className="contact-step" data-active={number <= currentStep} aria-label={`Step ${number}${number === currentStep ? ", current step" : ""}`} aria-current={number === currentStep ? "step" : undefined}>{number < currentStep ? <Check size={13} /> : number}</span>}>
+      <Step><h3>First, a little introduction.</h3><label htmlFor="contact-name">Your name<input id="contact-name" className="contact-input" autoComplete="name" value={name} onChange={event => setName(event.target.value)} maxLength={80} placeholder="What should I call you?" required /></label><label htmlFor="contact-email">Your email<input id="contact-email" className="contact-input" autoComplete="email" type="email" value={email} onChange={event => setEmail(event.target.value)} maxLength={254} placeholder="you@company.com" required /></label><p className="contact-help">A name and a valid email are needed to continue.</p></Step>
+      <Step><h3>What are you thinking?</h3><label htmlFor="contact-message">Your message<textarea id="contact-message" className="contact-input" value={message} onChange={event => setMessage(event.target.value)} maxLength={3000} rows={5} placeholder="A little context about the role, project, or idea…" required /></label><p className="contact-help">At least 10 characters. A little context goes a long way.</p></Step>
+      <Step><h3>Looks good to you?</h3><dl className="contact-review"><div><dt>From</dt><dd>{name}<br />{email}</dd></div><div><dt>Your note</dt><dd>{message}</dd></div></dl><p className="contact-help">Your name, email, and message will be sent through FormSubmit.</p></Step>
+    </Stepper><label className="honeypot" aria-hidden="true">Website<input value={website} onChange={event => setWebsite(event.target.value)} tabIndex={-1} autoComplete="off" /></label></div>}
+    <p className="contact-privacy">Prefer your own inbox? The email link works too. <a href="/privacy">Contact & privacy details</a>.</p></div></div></AnimatedContent></section>;
 }

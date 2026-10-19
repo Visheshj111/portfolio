@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vishesh Jangid — Portfolio
 
-## Getting Started
+A personal portfolio built on the `Alter` branch with Next.js, React, TypeScript, Tailwind CSS, GSAP, and Framer Motion.
 
-First, run the development server:
+## Local development
 
-```bash
+Use Node.js 22 or newer.
+
+```powershell
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For a separate preview port:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```powershell
+node node_modules/next/dist/bin/next dev --hostname 127.0.0.1 --port 13311
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content
 
-## Learn More
+- `lib/portfolio.ts`: profile links, selected projects, case-study decisions, validation, and scope.
+- `public/resume.pdf`: the existing résumé, retained as supplied.
+- Personal projects: QueueShield, Claude Usage, ELD Trip Planner, and Olivier.
+- Professional experience: Codemetron and Indira Group of Institutes. PlayNear is explicitly presented as an archived internship build.
+- Private company source and internal project details are not included.
 
-To learn more about Next.js, take a look at the following resources:
+The original PlayNear walkthrough and screenshots are retained. The Claude Usage dashboard image comes from its [public repository README](https://github.com/Visheshj111/claude-usage). The other project graphics are interface/architecture illustrations, labeled accordingly.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Interaction and motion
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The existing Aurora, BlurText, AnimatedContent, StaggeredMenu, Stepper, and Magnetic components remain part of the active experience. A shared motion provider and reduced-motion fallbacks limit nonessential animation. The mobile menu supports Escape, a keyboard focus loop, and an inert closed panel. Case studies use native modal dialogs.
 
-## Deploy on Vercel
+The hero playground is a browser-local model of Token Bucket and Sliding Window behavior: five requests per ten seconds. It sends no requests to a QueueShield API, stores no history, and makes no throughput claims.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project cards use an adapted [React Bits Spotlight Card](https://reactbits.dev/components/spotlight-card), preserving semantic articles and the custom layout. Its [MIT + Commons Clause license](public/licenses/react-bits.md) is included. The component uses subtle edge lighting, keyboard focus feedback, and reduced-motion support.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Existing unused visual components are retained for future design iterations.
+
+## Contact
+
+The stepper collects name, email, and message, then presents a review before submission. The same-origin `/api/contact` handler validates and bounds input before contacting the existing FormSubmit destination. It checks both HTTP status and the provider's acceptance flag. A provider error preserves the message and offers retry; opening an email client is never reported as delivery.
+
+FormSubmit must be activated for the recipient address and functioning for production submissions to succeed. No test messages were sent to the real recipient as part of development. The [privacy page](/privacy) describes what is sent to the provider. Email and social links work independently of the form.
+
+## Verification
+
+```powershell
+npm test
+npm run typecheck
+npm run build
+```
+
+The behavior tests cover burst admission, refill/expiry boundaries, contact validation, and provider success/failure responses. Provider tests use an injected request function and do not send email. GitHub Actions runs these checks on pushes and pull requests.
+
+`app/opengraph-image.tsx`, `app/icon.svg`, `app/robots.ts`, and `app/sitemap.ts` supply sharing and indexing assets. The canonical URL is the existing Vercel site; update it in `app/layout.tsx`, `app/robots.ts`, and `app/sitemap.ts` if the production domain changes.
+
+## Deployment
+
+Keep the existing Vercel project, with the repository root as its root directory. `npm run build` produces the Next.js application, including the contact route and generated sharing image. This redesign does not introduce another hosting platform or require a database.
