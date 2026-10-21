@@ -1,0 +1,56 @@
+:root{color-scheme:dark;--bg:#10120f;--ink:#f0f1e8;--muted:#a0a397;--accent:#c3e89d;--line:#2b3027;--surface:#191e15;--mono:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:32px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body.light-mode{color-scheme:light;--bg:#f4f5ee;--ink:#1d2618;--muted:#58644f;--accent:#426727;--line:#d4dccb;--surface:#e8eddf}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:3px}
+.skip-link{position:absolute;top:12px;left:20px;transform:translateY(-180%);background:var(--accent);color:var(--bg);padding:12px 18px;z-index:2}
+.skip-link:focus{transform:none}
+.site-header,main,footer{max-width:1240px;margin-inline:auto;padding-inline:56px}
+.site-header{display:flex;justify-content:space-between;align-items:center;min-height:105px}
+.wordmark{font-size:31px;letter-spacing:-.1em;font-weight:750;line-height:1}
+.wordmark span{color:var(--accent)}
+.header-actions{display:flex;align-items:center;gap:32px}
+.back-link{display:flex;gap:9px;align-items:center;font-size:12px;color:var(--muted)}
+.back-link:hover,footer>a:last-child:hover{color:var(--accent)}
+#theme-toggle{display:flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid var(--line);border-radius:6px;color:var(--ink);background:transparent;font-size:11px}
+#theme-toggle:hover{background:var(--surface);border-color:var(--muted)}
+.policy-hero{padding-block:82px 56px;border-bottom:1px solid var(--line);position:relative}
+.eyebrow{display:flex;align-items:center;gap:11px;font:10px/1.8 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 30px}
+.status-dot{width:6px;height:6px;flex-shrink:0;background:var(--accent);border-radius:50%;box-shadow:0 0 12px #c3e89d38}
+h1{font-size:clamp(54px,7.9vw,100px);letter-spacing:-.075em;line-height:1.03;font-weight:500;margin:0}
+h1>span{color:var(--accent)}
+.hero-caption{font-size:14px;color:var(--muted);margin:26px 0 0;letter-spacing:-.015em}
+.policy-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:70px;padding-block:48px 100px}
+.policy-index{position:sticky;top:32px;padding-top:8px}
+.policy-index summary{display:flex;justify-content:space-between;align-items:center;font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);list-style:none;cursor:pointer;padding-block:0 19px;border-bottom:1px solid var(--line)}
+.policy-index summary::-webkit-details-marker{display:none}
+.policy-index summary>span{font-size:15px;color:var(--accent)}
+.policy-index nav{display:flex;flex-direction:column;gap:2px;padding-top:15px}
+.policy-index nav a{display:flex;align-items:baseline;gap:13px;font-size:11px;line-height:1.6;color:var(--muted);padding:8px 2px;transition:color .15s}
+.policy-index nav a span{font:9px var(--mono);color:var(--accent);opacity:.7;min-width:15px}
+.policy-index nav a:hover,.policy-index nav a:focus-visible{color:var(--ink)}
+.policy-content{min-width:0;max-width:720px}
+.policy-content>p:first-child{display:inline-block;font:11px/1.6 var(--mono);padding:10px 13px;border:1px solid var(--line);border-radius:5px;background:var(--surface);margin:0 0 9px;color:var(--muted)}
+.policy-content>p:first-child strong{font-weight:400;color:var(--ink)}
+.policy-content h3{font-size:22px;line-height:1.35;font-weight:500;letter-spacing:-.04em;margin:43px 0 18px;padding-top:31px;border-top:1px solid var(--line);scroll-margin-top:32px}
+.policy-content h3:first-of-type{border-top:0;padding-top:0;margin-top:30px}
+.policy-content p,.policy-content ul{color:var(--muted);font-size:14px;line-height:1.95;margin:0 0 20px;overflow-wrap:anywhere}
+.policy-content strong{color:var(--ink);font-weight:550}
+.policy-content ul{padding-left:20px}
+.policy-content li{padding-left:5px;margin-bottom:10px}
+.policy-content li::marker{color:var(--accent)}
+.policy-content a{color:var(--accent)!important;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.policy-content a:hover{text-decoration-color:var(--accent)}
+.policy-content h3:target{color:var(--accent)}
+footer{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:110px;border-top:1px solid var(--line)}
+footer .wordmark{font-size:26px}
+footer p{font-size:10px;color:var(--muted)}
+footer>a:last-child{font-size:11px;color:var(--muted);display:flex;gap:12px;align-items:center}
+@media(max-width:1000px){.site-header,main,footer{padding-inline:36px}.policy-layout{grid-template-columns:210px minmax(0,1fr);gap:40px}.policy-hero{padding-top:65px}.policy-content h3{font-size:21px}}
+@media(max-width:760px){.site-header,main,footer{padding-inline:24px}.site-header{min-height:90px}.header-actions{gap:20px}.back-link{font-size:11px}#theme-toggle{padding:10px}#theme-toggle>span{display:none}.policy-hero{padding-block:55px 38px}.eyebrow{font-size:8px;letter-spacing:.03em;margin-bottom:25px;gap:8px}h1{font-size:clamp(50px,11vw,80px)}.hero-caption{margin-top:22px;font-size:12px}.policy-layout{grid-template-columns:1fr;gap:30px;padding-block:28px 64px}.policy-index{position:static;border:1px solid var(--line);border-radius:7px;background:var(--surface);padding:0 16px}.policy-index summary{border-bottom:0;padding-block:16px}.policy-index nav{border-top:1px solid var(--line);padding-block:9px 12px}.policy-index nav a{font-size:12px;padding-block:9px}.policy-content h3{font-size:22px;margin-top:35px;padding-top:26px}.policy-content h3:first-of-type{margin-top:26px}.policy-content p,.policy-content ul{font-size:14px;line-height:1.9}.policy-content>p:first-child{font-size:10px}footer{min-height:95px;gap:15px}footer p{font-size:9px}footer>a:last-child{font-size:10px;gap:7px}}
+@media(max-width:360px){.site-header,main,footer{padding-inline:20px}.back-link{font-size:10px}.header-actions{gap:14px}.eyebrow{font-size:7px}h1{font-size:48px}.policy-content h3{font-size:20px}footer p{font-size:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
