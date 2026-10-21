@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      { source: "/privacy-policy", destination: "/privacy-policy/index.html" },
+      { source: "/index.html", destination: "/" },
+    ];
+  },
   images: {
     qualities: [25, 50, 75, 100],
   },

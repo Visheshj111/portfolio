@@ -35,6 +35,8 @@ The hero playground is a browser-local model of Token Bucket and Sliding Window 
 
 Project cards use an adapted [React Bits Spotlight Card](https://reactbits.dev/components/spotlight-card), preserving semantic articles and the custom layout. Its [MIT + Commons Clause license](public/licenses/react-bits.md) is included. The component uses subtle edge lighting, keyboard focus feedback, and reduced-motion support.
 
+Project filters reuse the QueueShield RubberSegment as `components/reactbits/ProjectSwitcher.tsx`, with an elastic draggable highlight, radio-group keyboard controls, and the portfolio palette.
+
 Existing unused visual components are retained for future design iterations.
 
 ## Contact
@@ -42,6 +44,12 @@ Existing unused visual components are retained for future design iterations.
 The stepper collects name, email, and message, then presents a review before submission. The same-origin `/api/contact` handler validates and bounds input before contacting the existing FormSubmit destination. It checks both HTTP status and the provider's acceptance flag. A provider error preserves the message and offers retry; opening an email client is never reported as delivery.
 
 FormSubmit must be activated for the recipient address and functioning for production submissions to succeed. No test messages were sent to the real recipient as part of development. The [privacy page](/privacy) describes what is sent to the provider. Email and social links work independently of the form.
+
+## Approved extension policy
+
+The approved Chrome extension policy text and metadata come from main commit `e70a74a026ea2808813da34126c541a79a5a9f35`. `public/privacy-policy/index.html` retains every policy heading, paragraph, permission explanation, effective date, and canonical link. Its presentation now matches the portfolio through `public/styles.css`, with section navigation, a collapsible mobile contents list, and light/dark themes. `/privacy-policy` serves the standalone HTML directly, and `/privacy-policy/index.html` remains accessible. `/index.html` maps back to the portfolio for its navigation links.
+
+The approved GitHub Pages URL, `https://visheshj111.github.io/portfolio/privacy-policy`, remains on main. Do not replace it with the portfolio contact disclosure at `/privacy` or edit the approved policy as part of a visual redesign.
 
 ## Verification
 
