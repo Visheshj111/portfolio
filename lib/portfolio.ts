@@ -1,6 +1,8 @@
+export const siteOrigin = "https://portfolio-ashen-asasphi-67.vercel.app";
+
 export const profile = {
   name: "Vishesh Jangid",
-  email: "vishesh.domain@gmail.com",
+  email: "vishesh3126jangid@gmail.com",
   github: "https://github.com/Visheshj111",
   linkedin: "https://linkedin.com/in/vishesh-jangid",
   location: "Pune, India",

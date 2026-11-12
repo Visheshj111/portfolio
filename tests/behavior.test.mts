@@ -42,13 +42,26 @@ test("delivery uses the existing provider and requires explicit provider accepta
   let calls = 0;
   await deliverContact(message, (async (url, options) => {
     calls++;
-    assert.equal(url, "https://formsubmit.co/ajax/vishesh.domain@gmail.com");
+    assert.equal(url, "https://formsubmit.co/ajax/vishesh3126jangid@gmail.com");
     assert.equal(options?.method, "POST");
+    const headers = options?.headers as Record<string, string>;
+    assert.equal(headers.Origin, "https://portfolio-ashen-asasphi-67.vercel.app");
+    assert.equal(headers.Referer, "https://portfolio-ashen-asasphi-67.vercel.app/");
     assert.equal(JSON.parse(String(options?.body)).message, message.message);
     assert(options?.signal instanceof AbortSignal);
     return Response.json({ success: "true" });
   }) as typeof fetch);
   assert.equal(calls, 1);
+});
+
+test("delivery forwards the requesting origin so the provider accepts server-side calls", async () => {
+  const message = { name: "Test Reader", email: "test@example.com", message: "A meaningful test message." };
+  await deliverContact(message, (async (_url, options) => {
+    const headers = options?.headers as Record<string, string>;
+    assert.equal(headers.Origin, "http://localhost:3000");
+    assert.equal(headers.Referer, "http://localhost:3000/");
+    return Response.json({ success: "true" });
+  }) as typeof fetch, "http://localhost:3000");
 });
 
 test("delivery failures never turn into a success response or an automatic resend", async () => {

@@ -1,3 +1,5 @@
+import { profile, siteOrigin } from "./portfolio.ts";
+
 export type ContactMessage = { name: string; email: string; message: string };
 
 export function validateContact(value: unknown): ContactMessage {
@@ -12,10 +14,10 @@ export function validateContact(value: unknown): ContactMessage {
   return { name, email, message };
 }
 
-export async function deliverContact(message: ContactMessage, send: typeof fetch = fetch) {
-  const response = await send("https://formsubmit.co/ajax/vishesh.domain@gmail.com", {
+export async function deliverContact(message: ContactMessage, send: typeof fetch = fetch, origin: string = siteOrigin) {
+  const response = await send(`https://formsubmit.co/ajax/${profile.email}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    headers: { "Content-Type": "application/json", Accept: "application/json", Origin: origin, Referer: `${origin}/` },
     body: JSON.stringify({ ...message, _subject: "A new conversation from your portfolio", _template: "table" }),
     signal: AbortSignal.timeout(12000),
   });

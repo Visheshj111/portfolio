@@ -25,6 +25,6 @@ export async function POST(request: Request) {
   let message;
   try { message = validateContact(input); }
   catch (error) { return Response.json({ error: error instanceof Error ? error.message : "Check your message." }, { status: 400 }); }
-  try { await deliverContact(message); return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } }); }
+  try { await deliverContact(message, fetch, new URL(request.url).origin); return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } }); }
   catch { return Response.json({ error: "The message service is unavailable. Your message hasn’t been confirmed. Please retry or email me directly." }, { status: 502 }); }
 }
