@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, Check, CheckCircle2, Copy, LoaderCircle } fro
 import AnimatedContent from "@/components/AnimatedContent";
 import Stepper, { Step } from "@/components/Stepper";
 import { profile } from "@/lib/portfolio";
+import { deliverContact } from "@/lib/contact";
 
 export default function Contact() {
   const [name, setName] = useState("");
@@ -22,9 +23,8 @@ export default function Contact() {
     if (!detailsValid || !messageValid || status === "sending") return;
     setError(""); setStatus("sending");
     try {
-      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, message, website }), signal: AbortSignal.timeout(20000) });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.error || "The message service could not accept your message.");
+      if (website.trim()) { setStatus("sent"); return; }
+      await deliverContact({ name: name.trim(), email: email.trim(), message: message.trim() }, fetch, window.location.origin);
       setStatus("sent");
     } catch (error) {
       setError(error instanceof Error ? error.message : "Couldn’t send your message. You can email me directly instead.");

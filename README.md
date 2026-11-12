@@ -41,7 +41,7 @@ Existing unused visual components are retained for future design iterations.
 
 ## Contact
 
-The stepper collects name, email, and message, then presents a review before submission. The same-origin `/api/contact` handler validates and bounds input before contacting the existing FormSubmit destination. It checks both HTTP status and the provider's acceptance flag. A provider error preserves the message and offers retry; opening an email client is never reported as delivery.
+The stepper collects name, email, and message, then presents a review before submission. The browser validates and bounds input, then submits directly to the existing FormSubmit destination from the visitor's own browser — the provider rejects datacenter/server egress, so delivery intentionally does not run server-side. It checks both HTTP status and the provider's acceptance flag. A provider error preserves the message and offers retry; opening an email client is never reported as delivery. A hidden honeypot field silently discards bot submissions.
 
 FormSubmit must be activated for the recipient address and functioning for production submissions to succeed. No test messages were sent to the real recipient as part of development. The [privacy page](/privacy) describes what is sent to the provider. Email and social links work independently of the form.
 
